@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217669699168",
+    "project_id": "mat-fit",
+    "storage_bucket": "mat-fit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217669699168:android:9d63f029b0c4a9d3aca505",
+        "android_client_info": {
+          "package_name": "com.example.fit_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217669699168-75vm3uv8vnlkrf4jdh6bik8m8fo51vts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fit_app",
+            "certificate_hash": "60422fa016e50ace580091333ffb50835c91c399"
+          }
+        },
+        {
+          "client_id": "217669699168-rn127rpch9hj1ccl11dt46bo5s2p9of4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkX8yV3LU5ZQMLQ39h562tQtXP1a3tisE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217669699168-rn127rpch9hj1ccl11dt46bo5s2p9of4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
