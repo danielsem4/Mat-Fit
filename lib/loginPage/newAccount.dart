@@ -1,5 +1,6 @@
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/database.dart';
+import 'package:fit_app/loginPage/loading.dart';
 import 'package:flutter/material.dart';
 
 class NewAccount extends StatelessWidget {
@@ -22,7 +23,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> { 
 
   final AuthenticationService _auth = AuthenticationService();
-
+  bool loading = false;
   DatabaseService dbService = new DatabaseService();
 
   // The User Info  
@@ -135,6 +136,7 @@ class _BodyState extends State<Body> {
   }
   // navigate to the home page
   void register() async {
+    setState(() => loading = true);
     await _auth.signUp(email: emailC.text,password: passwordC.text);
     dbService.saveUser(email, name, lastName, phoneNumber);
     Navigator.pop(context);
@@ -142,7 +144,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return loading ? Loading() : SingleChildScrollView(
        child: Column(
          children: <Widget>[
            SizedBox(

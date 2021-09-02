@@ -1,13 +1,13 @@
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/loginPage/forgotPassword.dart';
+import 'package:fit_app/loginPage/loading.dart';
 import 'package:fit_app/loginPage/newAccount.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 
 class LoginPage extends StatefulWidget {
  
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -29,26 +29,30 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final AuthenticationService _auth = AuthenticationService();
+  
+  
   String name = "";
   String password = "";
   bool corrPassword = false;
+
+  bool loading = false;
+
   TextEditingController nameC = new TextEditingController();
   TextEditingController passwordC = new TextEditingController();
 
-  void logIn(){
+  void logIn() async {
     this.name = nameC.text;
     this.password = passwordC.text;
-
-    if(this.password == ""|| this.name == ""){
-      setState(() {
-        this.corrPassword = true;
-      });
+    setState(() => loading = true);
+    dynamic result = await _auth.signIn(email: name,password: password);
+    if(result != 'Signed in') {
+      setState(() => loading = false);
+      print('error signing in');
     } else {
-          context.read<AuthenticationService>().signIn(
-          email: nameC.text.trim(),
-          password: passwordC.text.trim()
-        );
-      }
+      print('signd in');
+    }
+   
   }
 
   void forgotPassword() {
@@ -64,7 +68,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final urLImage1 = 'assets/logo/logo_1.jpg';
-    return SingleChildScrollView(
+    return loading ? Loading() : SingleChildScrollView(
         child: Column(
           children: <Widget>[
           Padding(

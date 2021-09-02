@@ -60,7 +60,6 @@ class NavigationDrawerWidget extends StatelessWidget {
     );
   }
 
-
   Widget buildMenuItem ({
     String text,
     IconData icon,
@@ -94,11 +93,9 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
     }
   }
-
   void logOut() async {
      await _auth.signOut();
   }
-
 }
 
 

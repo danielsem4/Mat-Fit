@@ -3,8 +3,6 @@ import 'package:lottie/lottie.dart';
 
 
 class MyWorkoutPlan extends StatefulWidget {
-  
-
   @override
   _MyWorkoutPlanState createState() => _MyWorkoutPlanState();
 }
