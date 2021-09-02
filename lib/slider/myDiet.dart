@@ -1,3 +1,4 @@
+import 'package:fit_app/slider/contactMe.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -28,7 +29,11 @@ class _MyDietPageState extends State<MyDietPage> {
             ),
             icon: Icon(Icons.restaurant_menu_outlined),
             label: Text('Contact Me'),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context, 
+                  MaterialPageRoute(builder: (context) => ContactMe()));
+            },
           )
         ]
       ),

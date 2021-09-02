@@ -78,18 +78,19 @@ class NavigationDrawerWidget extends StatelessWidget {
 
     switch (index) {
       case 0:
-      Navigator.push(
-      context, 
-      MaterialPageRoute(builder: (context) => MyDietPage()));
+        Navigator.push(
+          context, 
+            MaterialPageRoute(builder: (context) => MyDietPage()));
        break;
        case 1:
-       Navigator.push(
-       context, 
-       MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
-       break;
+        Navigator.push(
+          context, 
+            MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
+        break;
+       
 
       case 5: 
-        logOut();
+          logOut();
         break;
     }
   }

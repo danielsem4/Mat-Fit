@@ -1,6 +1,7 @@
 // import 'package:fit_app/authentication.dart';
 import 'package:fit_app/database.dart';
 import 'package:fit_app/home/aboutMe.dart';
+import 'package:fit_app/slider/contactMe.dart';
 import 'package:fit_app/slider/navigationDrawer.dart';
 import 'package:flutter/material.dart';
 
@@ -126,7 +127,11 @@ class _Body extends State<Body> {
           padding: const EdgeInsets.only(top: 35.0),
           child: Center(
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context, 
+                    MaterialPageRoute(builder: (context) => ContactMe()));
+              },
               icon: Icon(Icons.person_pin_circle_outlined),
               label: Text("Contact Me"),
               style: ElevatedButton.styleFrom(
