@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../database.dart';
@@ -75,37 +77,6 @@ class _AnnouncementsState extends State<Announcements> {
   }
 }
 
-// class ChatRoomTile extends StatelessWidget {
-//   final String message;
-//   final String date;
-//   ChatRoomTile(
-//     this.message,
-//     this.date,
-//   );
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         print("damn");
-//       },
-//       child: Container(
-//           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-//           decoration:
-//               BoxDecoration(border: Border.all(color: Colors.grey[300])),
-//           child: Row(
-//             children: [
-//               SizedBox(
-//                 width: 12,
-//               ),
-//               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-//                 Text(message),
-//                 Text(date),
-//               ]),
-//             ],
-//           )),
-//     );
-//   }
-// }
 class ChatRoomTile extends StatelessWidget {
   final String message;
   final Timestamp date;
@@ -126,7 +97,30 @@ class ChatRoomTile extends StatelessWidget {
         date.toDate().minute.toString();
     return GestureDetector(
       onTap: () {
-        print("damn");
+        print("damn4");
+        AlertDialog alertdialog = AlertDialog(
+          actions: <Widget>[
+            Align(
+              child: Text(fulldate),
+              alignment: Alignment.centerLeft,
+            ),
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+          content: Text(
+            message,
+            textDirection: TextDirection.rtl,
+          ),
+        );
+        showDialog(
+            context: context,
+            builder: (context) {
+              return alertdialog;
+            });
       },
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
