@@ -24,4 +24,5 @@ class DatabaseService {
   getUserName() async {
     return await users.doc(auth.currentUser.uid).get();
   }
+  
 }

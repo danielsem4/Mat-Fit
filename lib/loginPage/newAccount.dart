@@ -9,7 +9,7 @@ class NewAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Mat-Fit')),
+      appBar: AppBar(title: Text('Mat-Fit'),backgroundColor: Colors.green,),
       body: Body());
   }
 }
@@ -33,7 +33,6 @@ class _BodyState extends State<Body> {
   String repeatPassword = "";
   String email = "";
   String phoneNumber = "";
-
 
   // Flags to check if the info is legal
   bool passwordFlag = false;

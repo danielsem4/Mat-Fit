@@ -1,41 +1,50 @@
-import 'package:fit_app/slider/contactMe.dart';
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:fit_app/database.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:provider/provider.dart';
 
-class MyDietPage extends StatefulWidget {
-  
+class MyDiet extends StatefulWidget {
+
   @override
-  _MyDietPageState createState() => _MyDietPageState();
+  _MyDietState createState() => _MyDietState();
 }
 
-class _MyDietPageState extends State<MyDietPage> {
+class _MyDietState extends State<MyDiet> {
+
+  String name = "";
+
+  DatabaseService dbService = new DatabaseService();
+
+  @override
+  void initState() {
+    loadInfo();
+    super.initState();
+  }
+
+  void loadInfo() async {
+    try {
+      dbService.getUserName().then((value){
+        setState(() {
+          name = value.data()['Name'];
+        });
+      });
+    } catch (e) {
+        print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme';
     return Scaffold(
       appBar: AppBar(
-        title: Text("Food For Thought"),
+        title: Text(name + 's Diet'),
+        backgroundColor: text == 'DarkTheme' ?
+                 Colors.deepPurple[400]: Colors.green,
         centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Lottie.asset('assets/anumations/36895-healthy-or-junk-food.json'),
-          SizedBox(height: 32),
-          Text("You Dont Have a Diet",style: TextStyle(fontSize: 26,color: Colors.green[700]),),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              textStyle: TextStyle(fontSize: 28),
-            ),
-            icon: Icon(Icons.restaurant_menu_outlined),
-            label: Text('Contact Me'),
-            onPressed: () {
-              Navigator.push(
-                context, 
-                  MaterialPageRoute(builder: (context) => ContactMe()));
-            },
-          )
-        ]
       ),
     );
   }

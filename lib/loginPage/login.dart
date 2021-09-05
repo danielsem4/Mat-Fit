@@ -16,6 +16,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Welcome"),
+        backgroundColor: Colors.green,
+        centerTitle: true,
+      ),
       body: Body(),
     );
   }
@@ -67,12 +72,12 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final urLImage1 = 'assets/logo/logo_1.jpg';
+    final urLImage1 = 'assets/logo/logo_4.png';
     return loading ? Loading() : SingleChildScrollView(
         child: Column(
           children: <Widget>[
           Padding(
-           padding: const EdgeInsets.all(80.0),
+           padding: const EdgeInsets.all(40.0),
             child: Image.asset(
               urLImage1,
               width: 500,

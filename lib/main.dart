@@ -24,11 +24,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-      title: 'Mat-Fit',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      color: Colors.grey,
       home: Wrapper() ,
     ));
   }

@@ -1,5 +1,9 @@
+import 'package:fit_app/slider/changeThemeButton.dart';
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
 
@@ -11,12 +15,13 @@ class _SettingsState extends State<Settings> {
 
   bool valNotify1 = false;
   bool valNotify2 = true;
-  bool valNotify3 = false;
+   
 
   valNotifyChange1(bool newVal) {
     setState(() {
       valNotify1 = newVal;
     });
+    
   }
 
   valNotifyChange2(bool newVal) {
@@ -25,18 +30,18 @@ class _SettingsState extends State<Settings> {
     });
   }
 
-  valNotifyChange3(bool newVal) {
-    setState(() {
-      valNotify3 = newVal;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    // final themeProvider = Provider.of<ThemeProvider>(context);
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme';
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: text == 'DarkTheme' ?
+                 Colors.grey[800]: Colors.grey,
         title: Text("Settings",style: TextStyle(fontSize: 22),),
-        backgroundColor: Colors.blue,
         centerTitle: true,
       ),
       body: SafeArea(
@@ -69,8 +74,12 @@ class _SettingsState extends State<Settings> {
             ),
             Divider(height: 20, thickness: 2.5),
             SizedBox(height: 10),
-            buildGeneralOption("Dark Mode",valNotify1,valNotifyChange1),
-            buildGeneralOption("Notifications",valNotify2,valNotifyChange2),
+            Row(
+              children: [
+                Text("Dark Mode",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),),
+                Icon(Icons.mode_night_outlined),
+                ChangeThemeButtonWidget(),
+              ],)
           ],
         )
       ,),
@@ -133,7 +142,7 @@ class _SettingsState extends State<Settings> {
             Text(title,style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
-              color: Colors.black54,
+              color: Colors.grey,
               ),
             ),
             Icon(Icons.arrow_forward_ios,color: Colors.grey)
