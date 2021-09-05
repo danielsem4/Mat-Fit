@@ -32,3 +32,4 @@ class DatabaseService {
     FirebaseFirestore.instance.collection('announcements').add(announcMap);
   }
 }
+}

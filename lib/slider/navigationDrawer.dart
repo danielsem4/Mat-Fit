@@ -1,18 +1,55 @@
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/slider/announcements.dart';
+import 'package:fit_app/database.dart';
 import 'package:fit_app/slider/myDiet.dart';
+import 'package:fit_app/slider/noDiet.dart';
 import 'package:fit_app/slider/myWorkOut.dart';
+import 'package:fit_app/slider/settings.dart';
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+
+  @override
+  _NavigationDrawerWidgetState createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
+
   final padding = EdgeInsets.symmetric(horizontal: 20);
   final AuthenticationService _auth = AuthenticationService();
 
+  String val = "false";
+  DatabaseService dbService = new DatabaseService();
+
+  @override
+  void initState() {
+    loadDiet();
+    super.initState();
+  }
+
+  void loadDiet() async {
+    try {
+      dbService.getUserName().then((value){ 
+        setState(() {
+          val = value.data()['Diet'];
+        });
+      });
+    } catch(e) {
+        print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme';
+  return Drawer(
       child: Material(
-        color: Color.fromRGBO(60, 140, 80, 1),
+        color: text == 'DarkTheme' ?
+        Colors.grey[800] : Colors.grey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView(
@@ -69,7 +106,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     );
   }
 
-  Widget buildMenuItem({
+  Widget buildMenuItem ({
     String text,
     IconData icon,
     VoidCallback onClicked,
@@ -77,14 +114,8 @@ class NavigationDrawerWidget extends StatelessWidget {
     final color = Colors.white;
 
     return ListTile(
-      leading: Icon(
-        icon,
-        color: color,
-      ),
-      title: Text(
-        text,
-        style: TextStyle(color: color),
-      ),
+      leading: Icon(icon,color: color,),
+      title: Text(text,style: TextStyle(color: color),),
       onTap: onClicked,
     );
   }
@@ -94,24 +125,39 @@ class NavigationDrawerWidget extends StatelessWidget {
 
     switch (index) {
       case 0:
+      if(this.val == "true") {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyDietPage()));
-        break;
-      case 1:
+          context, 
+            MaterialPageRoute(builder: (context) => MyDiet()));
+      } else {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
+          context, 
+            MaterialPageRoute(builder: (context) => NoDiet()));
+      }
+       break;
+       case 1:
+       
+        Navigator.push(
+          context, 
+            MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
         break;
-      case 3:
+        
+        case 3:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Announcements()));
         break;
+       
+      case 4:
+        Navigator.push(
+          context, 
+            MaterialPageRoute(builder: (context) => Settings()));
+        break;
 
-      case 5:
-        logOut();
+      case 5: 
+          logOut();
         break;
     }
   }
-
   void logOut() async {
     await _auth.signOut();
   }

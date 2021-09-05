@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fit_app/authentication.dart';
-import 'package:fit_app/home/homePage.dart';
-import 'package:fit_app/loginPage/login.dart';
+import 'package:fit_app/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,28 +24,13 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-      title: 'Mat-Fit',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: AuthenticationWrapper() ,
+      color: Colors.grey,
+      home: Wrapper() ,
     ));
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
 
-    if(firebaseUser != null) {
-      return HomePage();
-    }
-    
-    return LoginPage();
-  }
-}
 
 
 
