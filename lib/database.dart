@@ -25,11 +25,14 @@ class DatabaseService {
   }
 
   addNewAnnouncement(String announcement) async {
-    Map<String, String> announcMap = {
+    if (announcement==""){
+      return;
+    }
+    Map<String, Object> announcMap = {
       'announcement': announcement,
-      'date': DateTime.now().toString(),
+      'date': Timestamp.now(),
     };
-    FirebaseFirestore.instance.collection('announcements').add(announcMap);
+    FirebaseFirestore.instance.collection('Announcements').add(announcMap);
   }
 }
-}
+
