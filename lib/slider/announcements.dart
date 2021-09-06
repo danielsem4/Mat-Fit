@@ -97,8 +97,10 @@ class ChatRoomTile extends StatelessWidget {
         date.toDate().minute.toString();
     return GestureDetector(
       onTap: () {
-        print("damn4");
-        AlertDialog alertdialog = AlertDialog(
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
           actions: <Widget>[
             Align(
               child: Text(fulldate),
@@ -116,10 +118,6 @@ class ChatRoomTile extends StatelessWidget {
             textDirection: TextDirection.rtl,
           ),
         );
-        showDialog(
-            context: context,
-            builder: (context) {
-              return alertdialog;
             });
       },
       child: Container(
