@@ -1,7 +1,9 @@
 // import 'dart:html';
 
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import '../database.dart';
 
 // class Announcements extends StatefulWidget {
@@ -62,13 +64,18 @@ class _AnnouncementsState extends State<Announcements> {
 
   @override
   Widget build(BuildContext context) {
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme';
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Announcements",
         ),
+        backgroundColor: text == 'DarkTheme' ?
+          Colors.deepPurple[400]: Colors.green,
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        
       ),
       body: Container(
         child: chatRoomList(),

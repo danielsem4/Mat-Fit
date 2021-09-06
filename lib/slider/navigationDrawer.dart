@@ -135,8 +135,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
             MaterialPageRoute(builder: (context) => NoDiet()));
       }
        break;
+
        case 1:
-       
         Navigator.push(
           context, 
             MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
