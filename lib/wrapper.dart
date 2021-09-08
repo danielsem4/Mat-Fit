@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fit_app/admin/adminHomePage.dart';
+import 'package:fit_app/admin/adminNavigationBar.dart';
 import 'package:fit_app/admin/publishAnnouncement.dart';
 import 'package:fit_app/home/homePage.dart';
 import 'package:fit_app/loginPage/login.dart';
@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       return LoginPage();
     } else {
       if(user.email=="admin@admin.admin")
-        return AdminHomePage();
+        return AdminNavigationBar();
       return HomePage();
     }
   }

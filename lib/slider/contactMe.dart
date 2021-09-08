@@ -114,17 +114,17 @@ class _ContactMeState extends State<ContactMe> {
                     padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     child: IconButton(
                       icon: Icon(
-                        FontAwesomeIcons.mailBulk,
-                        color: Colors.red,
+                        FontAwesomeIcons.envelope,
+                        color: Colors.blue,
                         size: 41.0,
                       ),
-                      splashColor: Colors.redAccent,
+                      splashColor: Colors.blueAccent,
                       onPressed: () {},
                     ),
                   ),
                   SizedBox(height: 6),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                     child: Text("Mail",
                     style: TextStyle(
                       color:text == 'DarkTheme' ? 
