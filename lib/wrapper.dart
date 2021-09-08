@@ -19,7 +19,7 @@ class Wrapper extends StatelessWidget {
       return LoginPage();
     } else {
       if(user.email=="admin@admin.admin")
-        return PublishAnnouncement();
+        return AdminHomePage();
       return HomePage();
     }
   }

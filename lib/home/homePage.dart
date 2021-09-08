@@ -1,6 +1,7 @@
 // import 'package:fit_app/authentication.dart';
 import 'package:fit_app/database.dart';
 import 'package:fit_app/home/aboutMe.dart';
+import 'package:fit_app/home/recommendations.dart';
 import 'package:fit_app/slider/contactMe.dart';
 import 'package:fit_app/slider/navigationDrawer.dart';
 import 'package:fit_app/slider/theme.dart';
@@ -49,8 +50,8 @@ class _Body extends State<Body> {
     loadInfo();
     super.initState();
   }
-
-  void loadInfo() async {
+  
+   void loadInfo() async {
     try {
       dbService.getUserName().then((value){
         setState(() {
@@ -144,7 +145,12 @@ class _Body extends State<Body> {
           padding: const EdgeInsets.only(top: 35.0),
           child: Center(
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Recommendations())
+                 );
+              },
               icon: Icon(Icons.favorite_outline_sharp,
               color: text == 'DarkTheme' ? 
                 Colors.black87 : Colors.white),

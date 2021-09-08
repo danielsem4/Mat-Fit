@@ -1,4 +1,6 @@
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AboutMe extends StatefulWidget {
 
@@ -10,14 +12,21 @@ class _AboutMeState extends State<AboutMe> {
   final matansPhoto = 'assets/images/matan.png';
   String name = 'Matan Dayan';
   String email = 'matanDayam@gmail.com';
+  String myPhone = 'Phone: 0546831162';
   bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
+     final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme';
+
     return Scaffold(
       appBar: AppBar(
         title: Text('About Me'),
-        backgroundColor: Colors.green,),
+        backgroundColor: text == 'DarkTheme' ?
+                 Colors.deepPurple[400]: Colors.green,
+                 ),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
@@ -39,6 +48,10 @@ class _AboutMeState extends State<AboutMe> {
                 ),
               Text(
                 this.email,
+                style: TextStyle(color: Colors.blueGrey,fontSize: 16),
+              ),
+              Text(
+                this.myPhone,
                 style: TextStyle(color: Colors.blueGrey,fontSize: 16),
               ),
               SizedBox(

@@ -1,5 +1,7 @@
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_app/database.dart';
+import 'package:provider/provider.dart';
 // Define a custom Form widget.
 
 class PublishAnnouncement extends StatefulWidget {
@@ -13,13 +15,24 @@ class _PublishAnnouncementState extends State<PublishAnnouncement> {
   Widget build(BuildContext context) {
       final myController = TextEditingController();
       DatabaseService mydb = new DatabaseService();
+
+      // final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+      // ? 'DarkTheme' : 'LightTheme';
+
     return Scaffold(
-      appBar: AppBar(title: Text("300 calories of carbs a day")),
+      appBar: AppBar(
+        leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: Colors.white),
+        onPressed: () => Navigator.of(context).pop(),),
+      title: Text("300 calories of carbs a day"),
+      backgroundColor: Colors.grey.shade900,
+      centerTitle: true,
+      ),
+      backgroundColor: Colors.grey.shade600,
       body: Column(children: [
         Container(
           padding: EdgeInsets.all(60.0),
           child: TextField(
-          
           controller: myController,
           decoration: InputDecoration(hintText: "Publish the following:",
           contentPadding: EdgeInsets.all(100),
@@ -30,11 +43,12 @@ class _PublishAnnouncementState extends State<PublishAnnouncement> {
         ),
         )
         ,
-        ElevatedButton(onPressed: (){
-          mydb.addNewAnnouncement(myController.text);
+        ElevatedButton(
+          onPressed: (){
+            mydb.addNewAnnouncement(myController.text);
         },
         child: Text("Publish"), 
-        )
+        ),
 
       ],),
     );

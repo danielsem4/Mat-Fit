@@ -19,57 +19,122 @@ class _ContactMeState extends State<ContactMe> {
     : 'LightTheme';
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: text == 'DarkTheme' ?
+                 Colors.deepPurple[400]: Colors.green,
         title: Text("Contact Me"),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          Lottie.asset('assets/anumations/socialmedia.json'),
+          Lottie.asset('assets/anumations/cycling.json'),
           SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 38),
-              textStyle: TextStyle(fontSize: 26),
-              primary: Colors.blueAccent
-            ),
-            icon: Icon(FontAwesomeIcons.youtube,color: Colors.red[700]),
-            label: Text('YouTube',
-           style: TextStyle(
-                color: text == 'LightTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor
-            )),
-            onPressed: () {},
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(90.0, 0.0, 100.0, 0.0),
+                    child: IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.youtube,
+                        color: Colors.redAccent[700],
+                        size: 41.0,
+                      ),
+                      splashColor: Colors.red.shade800,
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text("Youtube",
+                  style: TextStyle(
+                    color:text == 'DarkTheme' ? 
+                    Colors.white : Colors.black
+                  )
+                  ,)
+                ],
+              ),
+          SizedBox(height: 16),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 100.0, 0.0),
+                child: IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.whatsapp,
+                    color: Colors.green[400],
+                    size: 41.0,
+                  ),
+                  splashColor: Colors.green,
+                  onPressed: () {},
+                ),
+              ),
+              SizedBox(height: 7),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 88.0, 0.0),
+                    child: Text("WhatsApp",
+                    style: TextStyle(
+                      color:text == 'DarkTheme' ? 
+                      Colors.white : Colors.black
+                    )
+                    ,),
+                  )
+            ],
           ),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              textStyle: TextStyle(fontSize: 26),
-              primary: Colors.blueAccent
-            ),
-            icon: Icon(FontAwesomeIcons.whatsapp,color: Colors.green[300],),
-            label: Text('WhatsApp',
-             style: TextStyle(
-                color: text == 'LightTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor
-            )),
-            onPressed: () {},
+            ],
           ),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              textStyle: TextStyle(fontSize: 26),
-              primary: Colors.blueAccent
-            ),
-            icon: Icon(FontAwesomeIcons.instagram,color: Colors.purple[600],),
-            label: Text('Instegram',
-             style: TextStyle(
-                color: text == 'LightTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor
-            )),
-            onPressed: () {},
+          SizedBox(height: 56),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(90.0, 0.0, 100.0, 0.0),
+                    child: IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.instagram,
+                        color: Colors.purpleAccent[700],
+                        size: 41.0,
+                      ),
+                      splashColor: Colors.purple,
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text("Instegram",
+                  style: TextStyle(
+                    color:text == 'DarkTheme' ? 
+                    Colors.white : Colors.black
+                  )
+                  ,)
+                ],
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    child: IconButton(
+                      icon: Icon(
+                        FontAwesomeIcons.mailBulk,
+                        color: Colors.red,
+                        size: 41.0,
+                      ),
+                      splashColor: Colors.redAccent,
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+                    child: Text("Mail",
+                    style: TextStyle(
+                      color:text == 'DarkTheme' ? 
+                      Colors.white : Colors.black
+                    )
+                    ,),
+                  )
+                ],
+              ),
+            ],
           ),
         ]
       ),
