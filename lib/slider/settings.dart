@@ -2,7 +2,7 @@ import 'package:fit_app/slider/changeThemeButton.dart';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
@@ -76,8 +76,8 @@ class _SettingsState extends State<Settings> {
             SizedBox(height: 10),
             Row(
               children: [
-                Text("Dark Mode",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),),
-                Icon(Icons.mode_night_outlined),
+                Text("Dark Mode ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.grey),),
+                Icon(FontAwesomeIcons.moon),
                 ChangeThemeButtonWidget(),
               ],)
           ],

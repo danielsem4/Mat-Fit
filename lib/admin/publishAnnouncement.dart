@@ -1,7 +1,5 @@
-import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_app/database.dart';
-import 'package:provider/provider.dart';
 // Define a custom Form widget.
 
 class PublishAnnouncement extends StatefulWidget {

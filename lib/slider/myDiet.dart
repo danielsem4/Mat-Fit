@@ -1,7 +1,6 @@
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_app/database.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:provider/provider.dart';
 
 class MyDiet extends StatefulWidget {

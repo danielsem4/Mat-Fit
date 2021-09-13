@@ -2,8 +2,6 @@ import 'package:fit_app/admin/adminCalendar.dart';
 import 'package:fit_app/admin/adminHomePage.dart';
 import 'package:fit_app/admin/adminSettings.dart';
 import 'package:fit_app/admin/publishAnnouncement.dart';
-import 'package:fit_app/admin/uploadPhoto.dart';
-import 'package:fit_app/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

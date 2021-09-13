@@ -1,11 +1,14 @@
 // import 'package:fit_app/authentication.dart';
 import 'package:fit_app/database.dart';
 import 'package:fit_app/home/aboutMe.dart';
+import 'package:fit_app/home/gallery.dart';
+import 'package:fit_app/home/myStudio.dart';
 import 'package:fit_app/home/recommendations.dart';
 import 'package:fit_app/slider/contactMe.dart';
 import 'package:fit_app/slider/navigationDrawer.dart';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -90,112 +93,156 @@ class _Body extends State<Body> {
             fit: BoxFit.cover,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutMe())
-                 );
-              },
-              icon: Icon(
-                Icons.info_outline_rounded,
-                color: text == 'DarkTheme' ? 
-                Colors.black87 : Colors.white),
-              label: Text("About Me",
-              style: TextStyle(
-                fontSize: 20,
-                color: text == 'DarkTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor
-                )),
-              style: ElevatedButton.styleFrom(
-                primary: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-                onPrimary: Colors.white,
-                minimumSize: Size(250, 45),
-              ),
-            ),
+        SizedBox(height: 40),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(60.0, 25.0, 90.0, 0.0),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => AboutMe()));
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.readme,
+                        color: text == 'DarkTheme' ?
+                        Colors.deepPurple[400]: Colors.green
+                        ),
+                        splashColor: Colors.purple.shade400,
+                        iconSize: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 22.0, 0.0),
+                      child: Text("About Me",
+                      style: TextStyle(
+                        color: text == 'DarkTheme' ? 
+                        Colors.white : Colors.black
+                  )),
+                    ),
+                ]),
+                Padding(
+                padding: const EdgeInsets.fromLTRB(40.0, 20.0, 0.0, 0.0),
+                child: Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => Gallery()));
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.cameraRetro,
+                        color: text == 'DarkTheme' ?
+                        Colors.deepPurple[400]: Colors.green
+                        ),
+                        splashColor: Colors.purple.shade400,
+                        iconSize: 50,
+                      ),
+                      SizedBox(height: 3),
+                      Text("Galery",
+                      style: TextStyle(
+                        color: text == 'DarkTheme' ? 
+                        Colors.white : Colors.black
+                      ),
+                      ),
+                  ],
+                ),
+                ),
+            ],
           ),
+        SizedBox(height: 40),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(64.0, 25.0, 90.0, 0.0),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => ContactMe()));
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.mobileAlt,
+                        color: text == 'DarkTheme' ?
+                        Colors.deepPurple[400]: Colors.green
+                        ),
+                        splashColor: Colors.purple.shade400,
+                        iconSize: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                      child: Text("Contact Me",
+                      style: TextStyle(
+                        color: text == 'DarkTheme' ? 
+                        Colors.white : Colors.black
+                  )),
+                    ),
+                ]),
+                Padding(
+                padding: const EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
+                child: Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => Recommendations()));
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.heart,
+                        color: text == 'DarkTheme' ?
+                        Colors.deepPurple[400]: Colors.green
+                        ),
+                        splashColor: Colors.purple.shade400,
+                        iconSize: 50,
+                      ),
+                      SizedBox(height: 3),
+                      Text("Recommendation",
+                      style: TextStyle(
+                        color: text == 'DarkTheme' ? 
+                        Colors.white : Colors.black
+                      ),
+                      ),
+                  ],
+                ),
+                ),
+            ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 35.0),
-          child: Center(
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.photo_camera_back,
-              color: text == 'DarkTheme' ? 
-                Colors.black87 : Colors.white),
-              label: Text("Gallery",
-              style: TextStyle(
-                fontSize: 20,
-                color: text == 'DarkTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor),),
-              style: ElevatedButton.styleFrom(
-                primary:  text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-                onPrimary: Colors.white,
-                minimumSize: Size(250, 45),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 35.0),
-          child: Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Recommendations())
-                 );
-              },
-              icon: Icon(Icons.favorite_outline_sharp,
-              color: text == 'DarkTheme' ? 
-                Colors.black87 : Colors.white),
-              label: Text("Recommendations",
-              style: TextStyle(
-                fontSize: 20,
-                color: text == 'DarkTheme' ? 
-                MyThemes.darkTheme.primaryColor : MyThemes.lightTheme.primaryColor
-                )),
-              style: ElevatedButton.styleFrom(
-                primary:  text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-                onPrimary: Colors.white,
-                minimumSize: Size(250, 45),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 35.0),
-          child: Center(
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context, 
-                    MaterialPageRoute(builder: (context) => ContactMe()));
-              },
-              icon: Icon(Icons.person_pin_circle_outlined,
-              color: text == 'DarkTheme' ? 
-                Colors.black87 : Colors.white),
-              label: Text("Contact Me",
-              style: TextStyle(
-                fontSize: 20,
-                color: text == 'DarkTheme' ? 
-                MyThemes.darkTheme.primaryColor : Colors.white,
-                )),
-              style: ElevatedButton.styleFrom(
-                primary: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-                onPrimary: Colors.white,
-                minimumSize: Size(250, 45),
-              ),
-            ),
-          ),
-        ),
+        Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(60.0, 45.0, 70.0, 0.0),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => MyStudio()));
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.dumbbell,
+                        color: text == 'DarkTheme' ?
+                        Colors.deepPurple[400]: Colors.green
+                        ),
+                        splashColor: Colors.purple.shade400,
+                        iconSize: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 0.0, 27.0, 0.0),
+                      child: Text("My Studio",
+                      style: TextStyle(
+                        color: text == 'DarkTheme' ? 
+                        Colors.white : Colors.black
+                  )),
+                    ),
+                ]),
       ],
     ));
   }

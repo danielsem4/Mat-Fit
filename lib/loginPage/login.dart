@@ -73,7 +73,9 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final urLImage1 = 'assets/logo/logo_4.png';
-    return loading ? Loading() : SingleChildScrollView(
+    return loading ? Loading() : Scaffold(
+    body: Stack(children: [ 
+     SingleChildScrollView(
         child: Column(
           children: <Widget>[
           Padding(
@@ -138,12 +140,12 @@ class _BodyState extends State<Body> {
            TextButton(
               onPressed: this.newAcc,
               child: Text(
-                'Creat New Account',
-                style: TextStyle(color: Colors.green, fontSize: 15),
+                'Create New Account',
+                style: TextStyle(color: Colors.green, fontSize: 18),
               ),
             ),
             SizedBox(height: 300)
           ],
-        ));
+        ))],));
   }
 }

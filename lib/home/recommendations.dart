@@ -18,8 +18,8 @@ class _RecommendationsState extends State<Recommendations> {
       appBar: AppBar(
         title: Text("Recommendations",
         style: TextStyle(
-          color: text == 'DarkTheme' ?
-            Colors.black87 : Colors.white
+          color: text == 'LightTheme' ?
+            Colors.black : Colors.white
          )),
         centerTitle: true,
         backgroundColor: text == 'DarkTheme' ?

@@ -1,8 +1,10 @@
 import 'package:fit_app/slider/theme.dart';
+import 'package:fit_app/slider/utlis.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactMe extends StatefulWidget {
   
@@ -11,6 +13,13 @@ class ContactMe extends StatefulWidget {
 }
 
 class _ContactMeState extends State<ContactMe> {
+
+  void launchWhatsapp({@required number,@required message}) async {
+    String url = "whatsapp://send?phone=$number&text=$message";
+
+    await canLaunch(url) ? launch(url) : print("Eror");
+
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -33,18 +42,19 @@ class _ContactMeState extends State<ContactMe> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(90.0, 0.0, 100.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(75.0, 0.0, 100.0, 0.0),
                     child: IconButton(
                       icon: Icon(
                         FontAwesomeIcons.youtube,
                         color: Colors.redAccent[700],
-                        size: 41.0,
+                        size: 50.0,
                       ),
                       splashColor: Colors.red.shade800,
-                      onPressed: () {},
+                      onPressed: () => Utils.openLink(
+                        url: 'http://google.com')
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 10),
                   Text("Youtube",
                   style: TextStyle(
                     color:text == 'DarkTheme' ? 
@@ -57,20 +67,22 @@ class _ContactMeState extends State<ContactMe> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 100.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(20.0, 0.0, 100.0, 0.0),
                 child: IconButton(
                   icon: Icon(
                     FontAwesomeIcons.whatsapp,
                     color: Colors.green[400],
-                    size: 41.0,
+                    size: 50.0,
                   ),
                   splashColor: Colors.green,
-                  onPressed: () {},
+                  onPressed: () {
+                    launchWhatsapp(number: "0522462878", message: "message");
+                  },
                 ),
               ),
-              SizedBox(height: 7),
+              SizedBox(height: 14),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 88.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(15.0, 0.0, 88.0, 0.0),
                     child: Text("WhatsApp",
                     style: TextStyle(
                       color:text == 'DarkTheme' ? 
@@ -88,43 +100,46 @@ class _ContactMeState extends State<ContactMe> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(90.0, 0.0, 100.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(80.0, 0.0, 100.0, 0.0),
                     child: IconButton(
                       icon: Icon(
                         FontAwesomeIcons.instagram,
                         color: Colors.purpleAccent[700],
-                        size: 41.0,
+                        size: 50.0,
                       ),
                       splashColor: Colors.purple,
                       onPressed: () {},
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text("Instegram",
-                  style: TextStyle(
-                    color:text == 'DarkTheme' ? 
-                    Colors.white : Colors.black
+                  SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 0.0),
+                    child: Text("Instegram",
+                    style: TextStyle(
+                      color:text == 'DarkTheme' ? 
+                      Colors.white : Colors.black
+                    )
+                    ,),
                   )
-                  ,)
                 ],
               ),
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
                     child: IconButton(
                       icon: Icon(
                         FontAwesomeIcons.envelope,
                         color: Colors.blue,
-                        size: 41.0,
+                        size: 50.0,
                       ),
                       splashColor: Colors.blueAccent,
                       onPressed: () {},
                     ),
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 12),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
                     child: Text("Mail",
                     style: TextStyle(
                       color:text == 'DarkTheme' ? 
