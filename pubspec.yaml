@@ -45,6 +45,7 @@ dependencies:
   firebase_storage: ^10.0.3
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
+  keyboard_dismisser: ^2.0.0
 
 
 dev_dependencies:

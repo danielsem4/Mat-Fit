@@ -19,8 +19,8 @@ class _PublishAnnouncementState extends State<PublishAnnouncement> {
 
     return Scaffold(
       appBar: AppBar(
-      title: Text("300 calories of carbs a day"),
-      backgroundColor: Colors.grey.shade900,
+      title: Text("Write a message"),
+      backgroundColor: Colors.grey.shade800,
       centerTitle: true,
       ),
       backgroundColor: Colors.grey.shade600,

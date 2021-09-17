@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class UploadPhoto extends StatefulWidget {
 
   @override
@@ -11,11 +12,12 @@ class _UploadPhotoState extends State<UploadPhoto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Galery"),
-        backgroundColor: Colors.grey.shade600,
+        title: Text("Upload photo"),
+        backgroundColor: Colors.grey.shade800,
         centerTitle: true,
       ),
-      backgroundColor: Colors.grey.shade900,
     );
   }
 }
+
+ 

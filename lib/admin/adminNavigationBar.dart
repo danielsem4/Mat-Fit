@@ -32,22 +32,22 @@ class _AdminNavigationBarState extends State<AdminNavigationBar> {
         onTap: (index) => setState(() => currIndex = index),
         items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home,color: Colors.blueAccent),
+              icon: Icon(Icons.home,color: Colors.white),
               label: 'Home',
               backgroundColor: Colors.grey.shade800,
             ),
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarCheck,color: Colors.blueAccent),
+              icon: Icon(FontAwesomeIcons.calendarCheck,color: Colors.white),
               label: 'Calendar',
               backgroundColor: Colors.grey.shade800,
             ),
              BottomNavigationBarItem(
-              icon: Icon(Icons.send,color: Colors.blueAccent),
+              icon: Icon(Icons.send,color: Colors.white),
               label: 'Message',
               backgroundColor: Colors.grey.shade800,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings,color: Colors.blueAccent,),
+              icon: Icon(Icons.settings,color: Colors.white,),
               label: 'Settings',
               backgroundColor: Colors.grey.shade800,
             ),

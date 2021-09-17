@@ -2,8 +2,8 @@
 import 'package:fit_app/database.dart';
 import 'package:fit_app/home/aboutMe.dart';
 import 'package:fit_app/home/gallery.dart';
-import 'package:fit_app/home/myStudio.dart';
 import 'package:fit_app/home/recommendations.dart';
+import 'package:fit_app/slider/announcements.dart';
 import 'package:fit_app/slider/contactMe.dart';
 import 'package:fit_app/slider/navigationDrawer.dart';
 import 'package:fit_app/slider/theme.dart';
@@ -79,7 +79,7 @@ class _Body extends State<Body> {
         iconTheme: Theme.of(context).iconTheme,
         title: Text('Hello ' + name),
         centerTitle: true,
-        backgroundColor:  text == 'DarkTheme' ?
+        backgroundColor: text == 'DarkTheme' ?
                  Colors.deepPurple[400]: Colors.green,
       ),
       body: Column(
@@ -93,7 +93,7 @@ class _Body extends State<Body> {
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(height: 40),
+        SizedBox(height: 10),
           Row(
             children: [
               Column(
@@ -111,7 +111,8 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ?
                         Colors.deepPurple[400]: Colors.green
                         ),
-                        splashColor: Colors.purple.shade400,
+                        splashColor: text == 'DarkTheme' ?
+                        Colors.purple.shade400: Colors.green.shade500,
                         iconSize: 50,
                       ),
                     ),
@@ -139,7 +140,8 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ?
                         Colors.deepPurple[400]: Colors.green
                         ),
-                        splashColor: Colors.purple.shade400,
+                        splashColor: text == 'DarkTheme' ?
+                        Colors.purple.shade400: Colors.green.shade500,
                         iconSize: 50,
                       ),
                       SizedBox(height: 3),
@@ -148,10 +150,10 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ? 
                         Colors.white : Colors.black
                       ),
-                      ),
+                    ),
                   ],
                 ),
-                ),
+              ),
             ],
           ),
         SizedBox(height: 40),
@@ -172,7 +174,8 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ?
                         Colors.deepPurple[400]: Colors.green
                         ),
-                        splashColor: Colors.purple.shade400,
+                        splashColor: text == 'DarkTheme' ?
+                        Colors.purple.shade400: Colors.green.shade500,
                         iconSize: 50,
                       ),
                     ),
@@ -200,7 +203,8 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ?
                         Colors.deepPurple[400]: Colors.green
                         ),
-                        splashColor: Colors.purple.shade400,
+                        splashColor: text == 'DarkTheme' ?
+                        Colors.purple.shade400: Colors.green.shade500,
                         iconSize: 50,
                       ),
                       SizedBox(height: 3),
@@ -209,10 +213,10 @@ class _Body extends State<Body> {
                         color: text == 'DarkTheme' ? 
                         Colors.white : Colors.black
                       ),
-                      ),
+                    ),
                   ],
                 ),
-                ),
+              ),
             ],
         ),
         Column(
@@ -223,20 +227,21 @@ class _Body extends State<Body> {
                       onPressed: () {
                         Navigator.push(
                          context, 
-                          MaterialPageRoute(builder: (context) => MyStudio()));
+                          MaterialPageRoute(builder: (context) => Announcements()));
                       },
                       icon: Icon(
-                        FontAwesomeIcons.dumbbell,
+                        FontAwesomeIcons.bell,
                         color: text == 'DarkTheme' ?
                         Colors.deepPurple[400]: Colors.green
                         ),
-                        splashColor: Colors.purple.shade400,
+                        splashColor: text == 'DarkTheme' ?
+                        Colors.purple.shade400: Colors.green.shade500,
                         iconSize: 50,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(30.0, 0.0, 27.0, 0.0),
-                      child: Text("My Studio",
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 27.0, 0.0),
+                      child: Text("Noticiations",
                       style: TextStyle(
                         color: text == 'DarkTheme' ? 
                         Colors.white : Colors.black

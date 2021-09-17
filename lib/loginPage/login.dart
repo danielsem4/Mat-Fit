@@ -3,6 +3,7 @@ import 'package:fit_app/loginPage/forgotPassword.dart';
 import 'package:fit_app/loginPage/loading.dart';
 import 'package:fit_app/loginPage/newAccount.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 
 
@@ -18,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Welcome"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.green.shade600,
         centerTitle: true,
       ),
       body: Body(),
@@ -40,6 +41,7 @@ class _BodyState extends State<Body> {
   String name = "";
   String password = "";
   bool corrPassword = false;
+  bool isPasswordVisible = false;
 
   bool loading = false;
 
@@ -71,9 +73,14 @@ class _BodyState extends State<Body> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final urLImage1 = 'assets/logo/logo_4.png';
-    return loading ? Loading() : Scaffold(
+  Widget build(BuildContext context) => KeyboardDismisser(
+    gestures: [
+      GestureType.onTap,
+      GestureType.onVerticalDragCancel,
+    ],
+    child: GestureDetector(
+    child: loading ? Loading() : Scaffold(
+      backgroundColor: Colors.grey[350],
     body: Stack(children: [ 
      SingleChildScrollView(
         child: Column(
@@ -81,7 +88,7 @@ class _BodyState extends State<Body> {
           Padding(
            padding: const EdgeInsets.all(40.0),
             child: Image.asset(
-              urLImage1,
+              ('assets/logo/logo_4.png'),
               width: 500,
               height: 150,
               fit: BoxFit.cover,
@@ -91,11 +98,22 @@ class _BodyState extends State<Body> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: this.nameC,
+                cursorColor: Colors.green.shade400,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email_outlined),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3),
+                       
+                    ),
+                    prefixIcon: Icon(Icons.email_outlined,color: Colors.green.shade600,),
                     labelText: 'Email',
-                    hintText: 'Enter Your Email'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Email',
+                    ),
               ),
             ),
             Padding(
@@ -104,12 +122,28 @@ class _BodyState extends State<Body> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: this.passwordC,
-                obscureText: true,
+                obscureText: isPasswordVisible,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3),
+                    ),
+                    prefixIcon: Icon(Icons.lock,color: Colors.green),
                     labelText: 'Password',
-                    hintText: 'Enter secure password'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter secure password',
+                    suffixIcon: IconButton(
+                      icon: isPasswordVisible
+                      ? Icon(Icons.visibility_off,color: Colors.grey.shade500,)
+                      : Icon(Icons.visibility,color: Colors.grey.shade500,),
+                      onPressed: () => 
+                      setState(() => isPasswordVisible = !isPasswordVisible),
+                    )
+                    ),
               ),
             ),
             if(corrPassword)
@@ -118,14 +152,14 @@ class _BodyState extends State<Body> {
               onPressed: this.forgotPassword,
               child: Text(
                 'Forgot Password ?',
-                style: TextStyle(color: Colors.green, fontSize: 15),
+                style: TextStyle(color: Colors.green.shade600, fontSize: 15),
               ),
             ),
             Container(
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: Colors.green, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.green.shade600, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: this.logIn,
                 child: Text(
@@ -141,11 +175,15 @@ class _BodyState extends State<Body> {
               onPressed: this.newAcc,
               child: Text(
                 'Create New Account',
-                style: TextStyle(color: Colors.green, fontSize: 18),
+                style: TextStyle(color: Colors.green.shade600, fontSize: 18),
               ),
             ),
             SizedBox(height: 300)
-          ],
-        ))],));
-  }
+            ],
+          )
+        )
+      ],
+    )
+  )
+  ));
 }

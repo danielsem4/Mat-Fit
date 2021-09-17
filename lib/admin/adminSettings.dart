@@ -11,9 +11,11 @@ class _AdminSettingsState extends State<AdminSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade800,
         title: Text("Settings"),
         centerTitle: true,
       ),
+      backgroundColor: Colors.grey.shade700,
     );
   }
 }

@@ -1,12 +1,15 @@
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/slider/announcements.dart';
 import 'package:fit_app/database.dart';
+import 'package:fit_app/slider/booktrain.dart';
 import 'package:fit_app/slider/myDiet.dart';
+import 'package:fit_app/slider/myProgress.dart';
 import 'package:fit_app/slider/noDiet.dart';
 import 'package:fit_app/slider/myWorkOut.dart';
 import 'package:fit_app/slider/settings.dart';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
@@ -82,8 +85,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 height: 16,
               ),
               buildMenuItem(
-                text: 'Notifications',
-                icon: Icons.notifications_active_outlined,
+                text: 'My Progress',
+                icon: FontAwesomeIcons.walking,
                 onClicked: () => selectedItem(context, 3),
               ),
               const SizedBox(height: 24),
@@ -142,9 +145,15 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
             MaterialPageRoute(builder: (context) => MyWorkoutPlan()));
         break;
         
+        case 2:
+        Navigator.push(
+          context, 
+            MaterialPageRoute(builder: (context) => NewTrain()));
+        break;
+
         case 3:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Announcements()));
+            context, MaterialPageRoute(builder: (context) => MyProgress()));
         break;
        
       case 4:

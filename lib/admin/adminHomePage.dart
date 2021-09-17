@@ -54,11 +54,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                 child: Column(
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => UploadPhoto()));
-                      },
+                      onPressed: () {},
                       icon: Icon(
                         FontAwesomeIcons.photoVideo,
                         color: Colors.white),
@@ -95,6 +91,47 @@ class _AdminHomePageState extends State<AdminHomePage> {
                       ),
                     ),
                     Text("Check Calendar",
+                    style: TextStyle(
+                      color: Colors.white
+                  )),
+                ]),
+                Padding(
+                padding: const EdgeInsets.fromLTRB(45.0, 20.0, 0.0, 0.0),
+                child: Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        FontAwesomeIcons.fileUpload,
+                        color: Colors.white),
+                        iconSize: 40,
+                      ),
+                      Text("Upload Diet",
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                      ),
+                  ],
+                ),
+                ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        FontAwesomeIcons.cloudUploadAlt,
+                        color: Colors.white),
+                        iconSize: 40,
+                      ),
+                    ),
+                    Text("Upload Workout",
                     style: TextStyle(
                       color: Colors.white
                   )),
