@@ -19,8 +19,17 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Welcome"),
-        backgroundColor: Colors.green.shade600,
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        ),
       ),
       body: Body(),
     );
@@ -80,7 +89,7 @@ class _BodyState extends State<Body> {
     ],
     child: GestureDetector(
     child: loading ? Loading() : Scaffold(
-      backgroundColor: Colors.grey[350],
+      backgroundColor: Colors.white,
     body: Stack(children: [ 
      SingleChildScrollView(
         child: Column(
@@ -88,9 +97,9 @@ class _BodyState extends State<Body> {
           Padding(
            padding: const EdgeInsets.all(40.0),
             child: Image.asset(
-              ('assets/logo/logo_4.png'),
-              width: 500,
-              height: 150,
+              ('assets/logo/logo_7.png'),
+              width: 300,
+              height: 195,
               fit: BoxFit.cover,
             ),),
             Padding(
@@ -169,7 +178,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             SizedBox(
-              height: 130,
+              height: 100,
             ),
            TextButton(
               onPressed: this.newAcc,

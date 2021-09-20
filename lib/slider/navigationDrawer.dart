@@ -1,6 +1,6 @@
 import 'package:fit_app/authentication.dart';
-import 'package:fit_app/slider/announcements.dart';
 import 'package:fit_app/database.dart';
+import 'package:fit_app/firebaseStorage.dart';
 import 'package:fit_app/slider/booktrain.dart';
 import 'package:fit_app/slider/myDiet.dart';
 import 'package:fit_app/slider/myProgress.dart';
@@ -24,6 +24,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   final AuthenticationService _auth = AuthenticationService();
 
   String val = "false";
+  String name = "";
+  String lastName = "";
   DatabaseService dbService = new DatabaseService();
 
   @override
@@ -40,6 +42,24 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         });
       });
     } catch(e) {
+        print(e.toString());
+    }
+    try {
+      dbService.getUserName().then((vl){
+        setState(() {
+          name = vl.data()['Name'];
+        });
+      });
+    } catch (e) {
+        print(e.toString());
+    }
+    try {
+      dbService.getUserName().then((vall){
+        setState(() {
+          lastName = vall.data()['Last_Name'];
+        });
+      });
+    } catch (e) {
         print(e.toString());
     }
   }
@@ -63,7 +83,19 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               buildMenuItem(
                 text: 'My Diet',
                 icon: Icons.restaurant,
-                onClicked: () => selectedItem(context, 0),
+                onClicked: () async {
+                   final url = 'Diets/'+name+'Diet.pdf';
+                   final file = await PDFApi.loadFirebase(url);
+                  if (file == null) return;
+                  if(this.val == "true") {
+                     Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MyDiet(file: file))); //
+                    } else {
+                      Navigator.push(
+                        context, 
+                          MaterialPageRoute(builder: (context) => NoDiet()));
+                    }
+                }
               ),
               const SizedBox(
                 height: 16,
@@ -71,7 +103,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               buildMenuItem(
                 text: 'My Workout Plan',
                 icon: Icons.assignment_rounded,
-                onClicked: () => selectedItem(context, 1),
+                onClicked: () {
+                  selectedItem(context, 1);
+                }
               ),
               const SizedBox(
                 height: 16,
@@ -127,17 +161,16 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     Navigator.of(context).pop();
 
     switch (index) {
-      case 0:
-      if(this.val == "true") {
-        Navigator.push(
-          context, 
-            MaterialPageRoute(builder: (context) => MyDiet()));
-      } else {
-        Navigator.push(
-          context, 
-            MaterialPageRoute(builder: (context) => NoDiet()));
-      }
-       break;
+      // case 0:
+      // if(this.val == "true") {
+      //   Navigator.of(context).push(
+      //       MaterialPageRoute(builder: (context) => MyDiet(file: ))); //
+      // } else {
+      //   Navigator.push(
+      //     context, 
+      //       MaterialPageRoute(builder: (context) => NoDiet()));
+      // }
+      //  break;
 
        case 1:
         Navigator.push(

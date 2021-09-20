@@ -1,10 +1,10 @@
 import 'package:fit_app/admin/adminCalendar.dart';
 import 'package:fit_app/admin/adminSettings.dart';
 import 'package:fit_app/admin/publishAnnouncement.dart';
-import 'package:fit_app/admin/uploadPhoto.dart';
 import 'package:fit_app/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class AdminHomePage extends StatefulWidget {
 
@@ -14,6 +14,7 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   final AuthenticationService _auth = AuthenticationService();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,16 @@ class _AdminHomePageState extends State<AdminHomePage> {
         title: Text("Welcome Coach"),
         backgroundColor: Colors.grey.shade800,
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey,
+                Colors.white10,
+              ]
+            )
+          ),
+        ),
       ),
       backgroundColor: Colors.grey.shade700,
       body: Column(
@@ -44,10 +55,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         iconSize: 40,
                       ),
                     ),
-                    Text("Send a Message",
-                    style: TextStyle(
-                      color: Colors.white
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 22.0, 0.0),
+                      child: Text("Send Message",
+                      style: TextStyle(
+                        color: Colors.white
                   )),
+                    ),
                 ]),
                 Padding(
                 padding: const EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
@@ -61,7 +75,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         iconSize: 40,
                       ),
                       SizedBox(height: 3),
-                      Text("Upload a Photo",
+                      Text("Upload Photo",
                       style: TextStyle(
                         color: Colors.white
                       ),
@@ -77,7 +91,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(65.0, 25.0, 90.0, 0.0),
                     child: IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -90,10 +104,13 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         iconSize: 40,
                       ),
                     ),
-                    Text("Check Calendar",
-                    style: TextStyle(
-                      color: Colors.white
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 0.0),
+                      child: Text("Check Calendar",
+                      style: TextStyle(
+                        color: Colors.white
                   )),
+                    ),
                 ]),
                 Padding(
                 padding: const EdgeInsets.fromLTRB(45.0, 20.0, 0.0, 0.0),
@@ -122,7 +139,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(62.0, 25.0, 90.0, 0.0),
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(
@@ -131,13 +148,16 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         iconSize: 40,
                       ),
                     ),
-                    Text("Upload Workout",
-                    style: TextStyle(
-                      color: Colors.white
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(4.0, 0.0, 15.0, 0.0),
+                      child: Text("Upload Workout",
+                      style: TextStyle(
+                        color: Colors.white
                   )),
+                    ),
                 ]),
                 Padding(
-                padding: const EdgeInsets.fromLTRB(50.0, 20.0, 0.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(56.0, 20.0, 0.0, 0.0),
                 child: Column(
                   children: [
                     IconButton(
@@ -187,6 +207,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
       ),
     );
   }
+
 }
 
 

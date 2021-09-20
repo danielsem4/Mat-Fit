@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -46,6 +46,7 @@ dependencies:
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^1.0.0+2
   keyboard_dismisser: ^2.0.0
+  table_calendar: ^3.0.2
 
 
 dev_dependencies:

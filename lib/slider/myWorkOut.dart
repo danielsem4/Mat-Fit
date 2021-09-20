@@ -47,12 +47,30 @@ class _MyWorkoutPlanState extends State<MyWorkoutPlan> {
       appBar: AppBar(
         title: Text("Food For Thought",
         style: TextStyle(
-          color: text == 'DarkTheme' ?
-                 Colors.black87 : Colors.white,
+          color: Colors.white,
         ),
         ),
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+       flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -70,11 +88,10 @@ class _MyWorkoutPlanState extends State<MyWorkoutPlan> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               textStyle: TextStyle(fontSize: 28),
             ),
-            icon: Icon(Icons.sports_kabaddi,color: Theme.of(context).primaryColor),
+            icon: Icon(Icons.sports_kabaddi,color: Colors.white),
             label: Text('Contact Me',
             style: TextStyle(
-              color: text == 'DarkTheme' ?
-                 Colors.black87 : Colors.white,
+              color: Colors.white,
             ),
             ),
             onPressed: () {

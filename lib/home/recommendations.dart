@@ -18,12 +18,30 @@ class _RecommendationsState extends State<Recommendations> {
       appBar: AppBar(
         title: Text("Recommendations",
         style: TextStyle(
-          color: text == 'LightTheme' ?
-            Colors.black : Colors.white
+          color: Colors.white
          )),
         centerTitle: true,
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        )
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_app/database.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 
 class Gallery extends StatefulWidget {
   @override
@@ -42,8 +42,27 @@ class _GalleryState extends State<Gallery> {
       appBar: AppBar(
         title: Text('Gallery'),
         centerTitle: true,
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        )
                  ),
       body: Column(
         children:[

@@ -18,8 +18,27 @@ class _NewTrainState extends State<NewTrain> {
       appBar: AppBar(
         title: Text("Book a Training"),
         centerTitle: true,
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        )
       ),
     );
   }

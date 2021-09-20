@@ -19,8 +19,27 @@ class _NoDietState extends State<NoDiet> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Food For Thought"),
-        backgroundColor: text == 'DarkTheme' ?
-         Colors.deepPurple[400]: Colors.green,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        ),
         centerTitle: true,
       ),
       body: Column(

@@ -24,8 +24,28 @@ class _AboutMeState extends State<AboutMe> {
     return Scaffold(
       appBar: AppBar(
         title: Text('About Me'),
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+        centerTitle: true,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        )
                  ),
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -64,6 +84,34 @@ class _AboutMeState extends State<AboutMe> {
                 style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
               ),),
               const SizedBox(height: 8),
+              Align(
+                alignment: FractionalOffset(0.2,0.4),
+              child: Text(
+                "  .שלום,קוראים לי מתן דיין ואני מאמן אישי כבר שנתיים וחצי",
+                style: TextStyle(fontSize: 16,height: 1.4),
+              ),),
+               const SizedBox(height: 8),
+              Align(
+                alignment: FractionalOffset(0.2,0.4),
+              child: Text(
+                "  למדתי בווינגייט שנה וחצי ",
+                style: TextStyle(fontSize: 16,height: 1.4),
+              ),),
+               const SizedBox(height: 8),
+              Align(
+                alignment: FractionalOffset(0.2,0.4),
+              child: Text(
+                "  My name is Matan Dayan I am a personal trainer,",
+                style: TextStyle(fontSize: 16,height: 1.4),
+              ),),
+               const SizedBox(height: 8),
+              Align(
+                alignment: FractionalOffset(0.2,0.4),
+              child: Text(
+                "  My name is Matan Dayan I am a personal trainer,",
+                style: TextStyle(fontSize: 16,height: 1.4),
+              ),),
+               const SizedBox(height: 8),
               Align(
                 alignment: FractionalOffset(0.2,0.4),
               child: Text(

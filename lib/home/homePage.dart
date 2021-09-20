@@ -68,7 +68,7 @@ class _Body extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final urLImage1 = 'assets/logo/logo_4.png';
+    final urLImage1 = 'assets/logo/logo_7.png';
     final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
     ? 'DarkTheme'
     : 'LightTheme';
@@ -76,30 +76,48 @@ class _Body extends State<Body> {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        iconTheme: Theme.of(context).iconTheme,
         title: Text('Hello ' + name),
         centerTitle: true,
-        backgroundColor: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
+        flexibleSpace: text == 'DarkTheme' ?
+         Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        )
       ),
-      body: Column(
+      body:SingleChildScrollView(
+        child: Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(25.0),
           child: Image.asset(
             urLImage1,
-            width: 300,
-            height: 120,
+            width: 290,
+            height: 225,
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(height: 10),
           Row(
             children: [
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(60.0, 25.0, 90.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(60.0, 0.0, 90.0, 0.0),
                     child: IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -126,7 +144,7 @@ class _Body extends State<Body> {
                     ),
                 ]),
                 Padding(
-                padding: const EdgeInsets.fromLTRB(40.0, 20.0, 0.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
                 child: Column(
                   children: [
                     IconButton(
@@ -145,7 +163,7 @@ class _Body extends State<Body> {
                         iconSize: 50,
                       ),
                       SizedBox(height: 3),
-                      Text("Galery",
+                      Text("Gallery",
                       style: TextStyle(
                         color: text == 'DarkTheme' ? 
                         Colors.white : Colors.black
@@ -162,7 +180,7 @@ class _Body extends State<Body> {
               Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(64.0, 25.0, 90.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(64.0, 0.0, 90.0, 0.0),
                     child: IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -189,7 +207,7 @@ class _Body extends State<Body> {
                     ),
                 ]),
                 Padding(
-                padding: const EdgeInsets.fromLTRB(15.0, 30.0, 0.0, 0.0),
+                padding: const EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
                 child: Column(
                   children: [
                     IconButton(
@@ -240,7 +258,7 @@ class _Body extends State<Body> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 27.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(20.0, 0.0, 27.0, 40.0),
                       child: Text("Noticiations",
                       style: TextStyle(
                         color: text == 'DarkTheme' ? 
@@ -249,6 +267,6 @@ class _Body extends State<Body> {
                     ),
                 ]),
       ],
-    ));
+    )));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:flutter/cupertino.dart';
 
 class DatabaseService {
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
@@ -53,7 +52,6 @@ class DatabaseService {
       print(e.toString());
     }
   }
-
 
 }
 
