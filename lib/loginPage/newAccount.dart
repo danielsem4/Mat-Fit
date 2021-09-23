@@ -9,7 +9,20 @@ class NewAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Mat-Fit'),backgroundColor: Colors.green,),
+      appBar: AppBar(
+        title: Text('Mat-Fit'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
+              ]
+            )
+          ),
+        ),
+        centerTitle: true,
+        ),
       body: Body());
   }
 }
@@ -18,7 +31,6 @@ class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
-
 
 class _BodyState extends State<Body> { 
 
@@ -39,6 +51,7 @@ class _BodyState extends State<Body> {
   bool repeatPaswwordFlag = false;
   bool emailFlag = false;
   bool phoneNumberFlag = false;
+  bool fail = false;
 
   // Controllers
   TextEditingController nameC = new TextEditingController();
@@ -136,9 +149,16 @@ class _BodyState extends State<Body> {
   // navigate to the home page
   void register() async {
     setState(() => loading = true);
-    await _auth.signUp(email: emailC.text,password: passwordC.text);
-    dbService.saveUser(email, name, lastName, phoneNumber);
-    Navigator.pop(context);
+    if (await _auth.signUp(email: emailC.text,password: passwordC.text) != "Eror") {
+      await dbService.saveUser(email, name, lastName, phoneNumber);
+      setState(() => fail = false);
+      Navigator.pop(context);
+    } else {
+      setState(() {
+        loading = false;
+        fail = true;
+      });
+    }
   }
 
   @override
@@ -149,51 +169,25 @@ class _BodyState extends State<Body> {
            SizedBox(
               height: 10
            ),
-          //  Container(
-          //   width: 300,
-          //  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 5),
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(0),
-          //     color: Colors.white,
-          //     border: Border.all(),
-          //   ),
-          //   child: DropdownButtonHideUnderline(
-          //     child: DropdownButton<String>(
-          //       value: value,
-          //       items: items
-          //       .map((item) => DropdownMenuItem<String>(
-          //         child: Row(
-          //           children:[
-          //             Icon(Icons.people),
-          //             const SizedBox(width: 8),
-          //             Text(
-          //               item,
-          //               style: TextStyle(
-          //                 fontWeight: FontWeight.bold,
-          //                 fontSize: 15,
-          //             )
-          //           ),
-          //           ]
-          //         ),
-          //         value: item,
-          //         ))
-          //         .toList(),
-          //         onChanged: (value) => setState(() {
-          //           this.value = value;
-          //         }),
-          //     ),
-          //   ),
-          // ),
            Padding(
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 30, bottom: 0),
               child: TextField(
                 controller: this.nameC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.person, color: Colors.grey.shade700),
                     labelText: 'Name',
-                    hintText: 'Enter Your Name'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Name',
+                    ),
               ),
             ),
           Padding(
@@ -202,10 +196,19 @@ class _BodyState extends State<Body> {
               child: TextField(
                 controller: this.lastNameC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.person),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.person_pin_rounded, color: Colors.grey.shade700),
                     labelText: 'Last Name',
-                    hintText: 'Enter Your Last Name'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Last Name',
+                    ),
               ),
             ),
           Padding(
@@ -214,10 +217,19 @@ class _BodyState extends State<Body> {
               child: TextField(
                 controller: this.emailC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                     prefixIcon: Icon(Icons.email_outlined),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.email_outlined,color: Colors.grey[700],),
                     labelText: 'Email',
-                    hintText: 'Enter Your Email'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Email',
+                    ),
               ),
             ),
             if(this.emailFlag) 
@@ -228,10 +240,19 @@ class _BodyState extends State<Body> {
               child: TextField(
                 controller: this.phoneNumberC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                     prefixIcon: Icon(Icons.phone_iphone),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.phone_android, color: Colors.grey.shade700),
                     labelText: 'Phone Number',
-                    hintText: 'Enter Your Phone Number'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Phone Number',
+                    ),
               ),
             ),
             if(this.phoneNumberFlag)
@@ -242,10 +263,19 @@ class _BodyState extends State<Body> {
               child: TextField(
                 controller: this.passwordC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                     prefixIcon: Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.lock,color: Colors.grey.shade700),
                     labelText: 'Password',
-                    hintText: 'Enter Your Password'),
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Password',
+                    ),
               ),
             ),
             if(this.passwordFlag)
@@ -256,12 +286,43 @@ class _BodyState extends State<Body> {
               child: TextField(
                 controller: this.repeatPasswordC,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
-                    labelText: 'Password',
-                    hintText: 'Repeat Your Password Again'),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius:  BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.green.shade600,width: 3)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                       borderRadius:  BorderRadius.circular(16),
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
+                    ),
+                    prefixIcon: Icon(Icons.lock,color: Colors.grey.shade700),
+                    labelText: 'Repeat Password',
+                    labelStyle: TextStyle(color: Colors.grey[850]),
+                    hintText: 'Enter Your Password',
+                    ),
               ),
             ),
+            fail == true ?
+            AlertDialog(
+              backgroundColor: Colors.grey.shade900,
+          actions: <Widget>[
+            Align(
+              child: Text(
+              "The User already exists",
+              style: TextStyle(color: Colors.grey.shade100,fontSize: 18),
+              ),
+              alignment: Alignment.centerLeft,
+            ),
+            TextButton(
+              child: const Text('Close'),
+              style: TextButton.styleFrom(
+                primary: Colors.grey.shade100
+              ),
+              onPressed: () {
+               Navigator.pop(context);
+              },
+            ),
+          ],
+        ) : Container(),
             if(this.repeatPaswwordFlag)
                Text("The Password Should Be The Same"),
             SizedBox(
@@ -285,6 +346,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-
-// TODO check if the user dose not exist !!

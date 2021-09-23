@@ -8,7 +8,6 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 
 class LoginPage extends StatefulWidget {
- 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -53,6 +52,7 @@ class _BodyState extends State<Body> {
   bool isPasswordVisible = false;
 
   bool loading = false;
+  bool wrongInfo = false;
 
   TextEditingController nameC = new TextEditingController();
   TextEditingController passwordC = new TextEditingController();
@@ -63,7 +63,10 @@ class _BodyState extends State<Body> {
     setState(() => loading = true);
     dynamic result = await _auth.signIn(email: name,password: password);
     if(result != 'Signed in') {
-      setState(() => loading = false);
+      setState(() {
+        wrongInfo = true;
+        loading = false;
+      });
       print('error signing in');
     } else {
       print('signd in');
@@ -95,7 +98,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
           Padding(
-           padding: const EdgeInsets.all(40.0),
+           padding: const EdgeInsets.all(25.0),
             child: Image.asset(
               ('assets/logo/logo_7.png'),
               width: 300,
@@ -115,8 +118,7 @@ class _BodyState extends State<Body> {
                     ),
                     focusedBorder: OutlineInputBorder(
                        borderRadius:  BorderRadius.circular(16),
-                       borderSide: BorderSide(color: Colors.green.shade600,width: 3),
-                       
+                       borderSide: BorderSide(color: Colors.green.shade600,width: 3), 
                     ),
                     prefixIcon: Icon(Icons.email_outlined,color: Colors.green.shade600,),
                     labelText: 'Email',
@@ -155,7 +157,7 @@ class _BodyState extends State<Body> {
                     ),
               ),
             ),
-            if(corrPassword)
+            if(wrongInfo)
               Text("Wrong Password or Email !"),
             TextButton(
               onPressed: this.forgotPassword,
@@ -187,7 +189,7 @@ class _BodyState extends State<Body> {
                 style: TextStyle(color: Colors.green.shade600, fontSize: 18),
               ),
             ),
-            SizedBox(height: 300)
+            SizedBox(height: 300),
             ],
           )
         )

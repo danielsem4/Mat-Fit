@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -22,8 +23,13 @@ class AuthenticationService {
     try {
       await  _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       return "Signed Up";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+      }  catch (signUpError) {
+          if(signUpError is PlatformException) {
+            if(signUpError.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+          return "Eror";
+        }
+      }
+      return "Eror";
     }
   }
 }

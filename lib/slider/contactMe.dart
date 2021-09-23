@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:fit_app/slider/theme.dart';
 import 'package:fit_app/slider/utlis.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +70,7 @@ class _ContactMeState extends State<ContactMe> {
                         size: 50.0,
                       ),
                       splashColor: Colors.red.shade800,
-                      onPressed: () => Utils.openLink(
-                        url: 'http://google.com')
+                      onPressed: () {}
                     ),
                   ),
                   SizedBox(height: 10),
@@ -95,7 +95,7 @@ class _ContactMeState extends State<ContactMe> {
                   ),
                   splashColor: Colors.green,
                   onPressed: () {
-                    launchWhatsapp(number: "0522462878", message: "message");
+                    openWhatsapp();
                   },
                 ),
               ),
@@ -173,5 +173,27 @@ class _ContactMeState extends State<ContactMe> {
         ]
       ),
     );
+  }
+  openWhatsapp() async {
+    var whatsapp = "0522462878";
+    var whatsappURLandroid = "whatsapp://send?phone="+whatsapp;
+    var whatsappURLios = "http://wa.me/$whatsapp?";
+
+    if(Platform.isIOS) {
+      // for ios phone
+      if( await canLaunch(whatsappURLios)) {
+        await launch(whatsappURLios);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: new Text("Eror")));
+      }
+    } else { 
+      // for android phone
+       if( await canLaunch(whatsappURLandroid)) {
+        await launch(whatsappURLandroid);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: new Text("Eror")));
+      }
+    }
+
   }
 }

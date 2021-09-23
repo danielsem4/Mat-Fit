@@ -20,8 +20,18 @@ class _PublishAnnouncementState extends State<PublishAnnouncement> {
     return Scaffold(
       appBar: AppBar(
       title: Text("Write a message"),
-      backgroundColor: Colors.grey.shade800,
       centerTitle: true,
+      backgroundColor: Colors.grey.shade800,
+         flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey,
+                Colors.white10,
+              ]
+            )
+          ),
+        ),
       ),
       backgroundColor: Colors.grey.shade600,
       body: Column(children: [

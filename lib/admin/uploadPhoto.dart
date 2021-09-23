@@ -13,8 +13,18 @@ class _UploadPhotoState extends State<UploadPhoto> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Upload photo"),
-        backgroundColor: Colors.grey.shade800,
         centerTitle: true,
+        backgroundColor: Colors.grey.shade800,
+         flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.grey,
+                Colors.white10,
+              ]
+            )
+          ),
+        ),
       ),
     );
   }
