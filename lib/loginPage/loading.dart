@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 
 
 class Loading extends StatelessWidget {
@@ -8,11 +8,11 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitChasingDots(
-          color: Colors.green.shade500,
-          size: 60.0,
+        child: Padding(
+              padding: const EdgeInsets.only(top: 60.0),
+              child: Lottie.asset('assets/anumations/runner.json'),
+            ),
         ),
-      ),
     );
   }
 }

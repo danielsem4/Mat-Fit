@@ -163,7 +163,7 @@ class _BodyState extends State<Body> {
               onPressed: this.forgotPassword,
               child: Text(
                 'Forgot Password ?',
-                style: TextStyle(color: Colors.green.shade600, fontSize: 15),
+                style: TextStyle(color: Colors.green.shade600, fontSize: 16),
               ),
             ),
             Container(
