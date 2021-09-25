@@ -2,6 +2,7 @@ import 'package:fit_app/admin/adminCalendar.dart';
 import 'package:fit_app/admin/adminSettings.dart';
 import 'package:fit_app/admin/publishAnnouncement.dart';
 import 'package:fit_app/authentication.dart';
+import 'package:fit_app/widgets/searchUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -34,176 +35,182 @@ class _AdminHomePageState extends State<AdminHomePage> {
         ),
       ),
       backgroundColor: Colors.grey.shade700,
-      body: Column(
-        children: [
-          SizedBox(height: 40),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => PublishAnnouncement()));
-                      },
-                      icon: Icon(
-                        Icons.send_rounded,
-                        color: Colors.white),
-                        iconSize: 40,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 22.0, 0.0),
-                      child: Text("Send Message",
-                      style: TextStyle(
-                        color: Colors.white
-                  )),
-                    ),
-                ]),
-                Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
-                child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 40),
+            Row(
+              children: [
+                Column(
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        FontAwesomeIcons.photoVideo,
-                        color: Colors.white),
-                        iconSize: 40,
-                      ),
-                      SizedBox(height: 3),
-                      Text("Upload Photo",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                  ],
-                ),
-                ),
-            ],
-          ),
-           SizedBox(height: 20),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(65.0, 25.0, 90.0, 0.0),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => AdminCalendar()));
-                      },
-                      icon: Icon(
-                        FontAwesomeIcons.calendarCheck,
-                        color: Colors.white),
-                        iconSize: 40,
-                      ),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 0.0),
-                      child: Text("Check Calendar",
-                      style: TextStyle(
-                        color: Colors.white
-                  )),
-                    ),
-                ]),
-                Padding(
-                padding: const EdgeInsets.fromLTRB(45.0, 20.0, 0.0, 0.0),
-                child: Column(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        FontAwesomeIcons.fileUpload,
-                        color: Colors.white),
-                        iconSize: 40,
+                      padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => PublishAnnouncement()));
+                        },
+                        icon: Icon(
+                          Icons.send_rounded,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
                       ),
-                      Text("Upload Diet",
-                      style: TextStyle(
-                        color: Colors.white
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 22.0, 0.0),
+                        child: Text("Send Message",
+                        style: TextStyle(
+                          color: Colors.white
+                    )),
                       ),
-                      ),
-                  ],
-                ),
-                ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Row(
-            children: [
-              Column(
-                children: [
+                  ]),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(62.0, 25.0, 90.0, 0.0),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        FontAwesomeIcons.cloudUploadAlt,
-                        color: Colors.white),
-                        iconSize: 40,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(4.0, 0.0, 15.0, 0.0),
-                      child: Text("Upload Workout",
-                      style: TextStyle(
-                        color: Colors.white
-                  )),
-                    ),
-                ]),
-                Padding(
-                padding: const EdgeInsets.fromLTRB(56.0, 20.0, 0.0, 0.0),
-                child: Column(
+                  padding: const EdgeInsets.fromLTRB(30.0, 20.0, 0.0, 0.0),
+                  child: Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          FontAwesomeIcons.photoVideo,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
+                        SizedBox(height: 3),
+                        Text("Upload Photo",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        ),
+                    ],
+                  ),
+                  ),
+              ],
+            ),
+             SizedBox(height: 20),
+            Row(
+              children: [
+                Column(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => AdminSettings()));
-                      },
-                      icon: Icon(
-                        Icons.settings,
-                        color: Colors.white),
-                        iconSize: 40,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(65.0, 25.0, 90.0, 0.0),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => AdminCalendar()));
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.calendarCheck,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
                       ),
-                      Text("Settings",
-                      style: TextStyle(
-                        color: Colors.white
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 18.0, 0.0),
+                        child: Text("Check Calendar",
+                        style: TextStyle(
+                          color: Colors.white
+                    )),
                       ),
+                  ]),
+                  Padding(
+                  padding: const EdgeInsets.fromLTRB(45.0, 20.0, 0.0, 0.0),
+                  child: Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          FontAwesomeIcons.fileUpload,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
+                        Text("Upload PDF",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        ),
+                    ],
+                  ),
+                  ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(62.0, 25.0, 90.0, 0.0),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => SearcUsers()));
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.search,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
                       ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(4.0, 0.0, 15.0, 0.0),
+                        child: Text("Search User",
+                        style: TextStyle(
+                          color: Colors.white
+                    )),
+                      ),
+                  ]),
+                  Padding(
+                  padding: const EdgeInsets.fromLTRB(56.0, 20.0, 0.0, 0.0),
+                  child: Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => AdminSettings()));
+                        },
+                        icon: Icon(
+                          Icons.settings,
+                          color: Colors.white),
+                          iconSize: 40,
+                        ),
+                        Text("Settings",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        ),
+                    ],
+                  ),
+                  ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 80),
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  await _auth.signOut();
+                },
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white),
+                label: Text("LogOut",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white
+                  )),
+                style: ElevatedButton.styleFrom(
+                  primary:Colors.grey.shade600,
+                  onPrimary: Colors.white,
+                  minimumSize: Size(250, 45),
                 ),
-                ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 80),
-            child: ElevatedButton.icon(
-              onPressed: () async {
-                await _auth.signOut();
-              },
-              icon: Icon(
-                Icons.logout,
-                color: Colors.white),
-              label: Text("LogOut",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white
-                )),
-              style: ElevatedButton.styleFrom(
-                primary:Colors.grey.shade600,
-                onPrimary: Colors.white,
-                minimumSize: Size(250, 45),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

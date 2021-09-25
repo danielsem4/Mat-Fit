@@ -115,8 +115,8 @@ class _BodyState extends State<Body> {
           ]
     ));
   }
+  
   Widget buildDialog() {
-    
     return Dialog(  
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4)

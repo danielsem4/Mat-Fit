@@ -12,7 +12,7 @@ class NewTrain extends StatefulWidget {
 class _NewTrainState extends State<NewTrain> {
    DateTime selectedDay = DateTime.now();
    DateTime focusedDay = DateTime.now();
-   CalendarFormat format = CalendarFormat.month;
+   CalendarFormat format = CalendarFormat.week;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _NewTrainState extends State<NewTrain> {
             firstDay: DateTime.utc(2021), 
             lastDay: DateTime.utc(2031),
             calendarFormat: format,
-            weekendDays: [6],
+            weekendDays: [5,6],
             onFormatChanged: (CalendarFormat _format) {
               setState(() {
                 format = _format;
@@ -80,12 +80,90 @@ class _NewTrainState extends State<NewTrain> {
                 Icons.chevron_right,
                 color: text == 'DarkTheme' ?
                 Colors.white : Colors.black,
+              ),
+            ),
+            calendarStyle: CalendarStyle(
+              weekendTextStyle: TextStyle(
+                color: Colors.redAccent
+              ),
+            ),
+            daysOfWeekStyle: DaysOfWeekStyle(
+              weekdayStyle: TextStyle(
+                color: Colors.white,
+              ),
+              weekendStyle: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+          SizedBox(height: 5),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                color: Colors.grey.shade100
+              ),
+              child: Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "23 September 2021",
+                            style: TextStyle(
+                              color: Colors.grey
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      Column(
+                        children: [
+                          dayTask()
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-                
+              ),
             ),
           ),
         ],
-      ), 
+      ),
+    );
+  }
+  Widget dayTask() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(20),
+          width: MediaQuery.of(context).size.width*0.18,
+          child: Text(
+            "10 am",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.right,
+          ),
+        ),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.all(20),
+            color: Colors.deepPurple.shade400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("אופק ישמן יש לך אימון ב-10")
+              ],
+            ),
+          )
+        )
+      ],
     );
   }
 }

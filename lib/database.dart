@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/material.dart';
 
 class DatabaseService {
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
@@ -20,6 +21,13 @@ class DatabaseService {
       await users.doc(auth.currentUser.uid).set(userInfoMap);
       return;
     }
+
+  Future<QuerySnapshot> getUserByUsername(String searchQuery) async {
+    return await FirebaseFirestore.instance
+      .collection('Users')
+      .where('Name', isEqualTo: searchQuery)
+      .get();
+  }
 
   getUserName() async {
     return await users.doc(auth.currentUser.uid).get();
@@ -51,6 +59,19 @@ class DatabaseService {
     } catch (e) {
       print(e.toString());
     }
+  }
+  
+  addNewEvent(
+    String title, String description, DateTime dateTime,String email,TimeOfDay time, String trainer) async {
+    Map<String, Object> eventMap = {
+      'dateTime': dateTime,
+      'description': description,
+      'id': email,
+      'title': title,
+      'trainer': trainer,
+      'hours': time.toString(),
+    };
+    FirebaseFirestore.instance.collection('Events').add(eventMap);
   }
 }
 

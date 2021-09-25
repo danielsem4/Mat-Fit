@@ -78,6 +78,7 @@ class _MyDietState extends State<MyDiet> {
       ),
       body: PDFView(
         filePath: widget.file.path,
+        swipeHorizontal: true,
       ),
     );
   }

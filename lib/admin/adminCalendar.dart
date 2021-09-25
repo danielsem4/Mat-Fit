@@ -9,7 +9,7 @@ class AdminCalendar extends StatefulWidget {
 }
 
 class _AdminCalendarState extends State<AdminCalendar> {
-  DateTime selectedDay = DateTime.now();
+   DateTime selectedDay = DateTime.now();
    DateTime focusedDay = DateTime.now();
    CalendarFormat format = CalendarFormat.month;
   @override
@@ -35,7 +35,7 @@ class _AdminCalendarState extends State<AdminCalendar> {
          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget> [
-            SizedBox(height: 5),
+            SizedBox(height: 10),
             TableCalendar(
               focusedDay: focusedDay, 
               firstDay: DateTime.utc(2021), 

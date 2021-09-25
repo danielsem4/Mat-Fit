@@ -1,3 +1,5 @@
+import 'package:fit_app/database.dart';
+import 'package:fit_app/widgets/listOfUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -13,7 +15,47 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
-  final _formKey = GlobalKey<FormBuilderState>();
+
+  DatabaseService dbService = DatabaseService();
+  TextEditingController titleC = new TextEditingController();
+  TextEditingController descriptionC = new TextEditingController();
+  DateTime dateTime = DateTime.now();
+  String email = "";
+  String userName = "";
+  TimeOfDay time;
+
+  String getText() {
+    if(time == null) {
+      return 'Select Time';
+    } else {
+      final hours = time.hour.toString().padLeft(2,'0');
+      final minutes = time.minute.toString().padLeft(2,'0');
+      return '$hours:$minutes';
+    }
+  }
+
+  String getTrainerName() {
+    return 'Check';
+  }
+
+  @override
+  void initState() {
+    loadInfo();
+    super.initState();
+  }
+  
+   void loadInfo() async {
+    try {
+      dbService.getUserName().then((value){
+        setState(() {
+          email = value.data()['Email'];
+        });
+      });
+    } catch (e) {
+        print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +86,8 @@ class _AddEventPageState extends State<AddEventPage> {
                 primary: Colors.transparent
               ),
               onPressed: () async {
-
+                await dbService.addNewEvent(titleC.text, descriptionC.text, dateTime, email, time, userName);
+                Navigator.of(context).pop();
               },
                child: Text("Save"),
                ),
@@ -52,21 +95,24 @@ class _AddEventPageState extends State<AddEventPage> {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(26.0),
         children: <Widget> [
           FormBuilder(
             child: Column(
               children: [
-                FormBuilderTextField(name: "title",
+                FormBuilderTextField(
+                name: "title",
+                controller: this.titleC,
                 decoration: InputDecoration(
                   hintText: "Add Title",
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.turned_in_not),
                 )),
-                Divider(
+                Divider (
                   thickness: 2.5,
                 ),
                 FormBuilderTextField(
+                  controller: this.descriptionC,
                   name: "description",
                   maxLines: 5,
                   minLines: 1,
@@ -76,14 +122,14 @@ class _AddEventPageState extends State<AddEventPage> {
                     prefixIcon: Icon(Icons.short_text),
                   ),
                 ),
-                Divider(
+                Divider (
                   thickness: 2.5,
                 ),
                 FormBuilderDateTimePicker(
                   scrollPadding: const EdgeInsets.only(bottom: 15),
                   name: "date",
                   initialValue: widget.selectedday ?? 
-                  DateTime.now(),
+                  dateTime,
                   fieldHintText: "Add Date",
                   inputType: InputType.date,
                   format: DateFormat('EEEE, dd MMMM, yyyy'),
@@ -91,12 +137,61 @@ class _AddEventPageState extends State<AddEventPage> {
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.calendar_today_sharp)
                   ),
-                )
+                ),
+                Divider (
+                  thickness: 2.5,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.more_time),
+                      iconSize: 35,
+                      color: Colors.grey,
+                      onPressed: () => pickTime(context),
+                    ),
+                    Text(getText())
+                  ],
+                ),
+                Divider (
+                  thickness: 2.5,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.person),
+                      iconSize: 35,
+                      color: Colors.grey,
+                      onPressed: () {
+                        setState(() {
+                          userName = getTrainerName();
+                        });
+                        Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => ListOfUsers()));
+                      }
+                    ),
+                    Text("Select trainer")
+                  ],
+                ),
+                Divider (
+                  thickness: 2.5,
+                ),
               ],
             ) 
           )
         ],
       ),
     );
+  }
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay(hour: 12, minute: 0);
+    final selectedTime = await showTimePicker(
+      context: context,
+      initialTime: time ?? initialTime,
+    );
+    if (selectedTime == null) return;
+    setState(() {
+      time = selectedTime;
+    });
   }
 }
