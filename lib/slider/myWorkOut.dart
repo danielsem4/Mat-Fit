@@ -1,56 +1,58 @@
-import 'package:fit_app/database.dart';
-import 'package:fit_app/slider/contactMe.dart';
+import 'dart:io';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:fit_app/database.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
+class MyWorkout extends StatefulWidget {
+  final File file;
 
-class MyWorkoutPlan extends StatefulWidget {
+  const MyWorkout({
+    Key key,
+    @required this.file,
+  }) : super(key: key);
+
   @override
-  _MyWorkoutPlanState createState() => _MyWorkoutPlanState();
+  _MyWorkoutState createState() => _MyWorkoutState();
 }
 
-class _MyWorkoutPlanState extends State<MyWorkoutPlan> {
+class _MyWorkoutState extends State<MyWorkout> {
 
-  bool val = false;
-
+  String name = "";
   DatabaseService dbService = new DatabaseService();
+
+  List<String> workoutLinks = [];
 
   @override
   void initState() {
-    loadWorkout();
-      super.initState();
+    loadInfo();
+    super.initState();
   }
 
-  void loadWorkout() async {
+  void loadInfo() async {
     try {
-      dbService.getUserName().then((value){ 
+      dbService.getUserName().then((value){
         setState(() {
-          val = value.data()['WorkoutPlan'];
+          name = value.data()['Name'];
         });
       });
-    } catch(e) {
+    } catch (e) {
         print(e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
+    final name = basename(widget.file.path);
     final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
     ? 'DarkTheme'
     : 'LightTheme';
-
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Food For Thought",
-        style: TextStyle(
-          color: Colors.white,
-        ),
-        ),
-       flexibleSpace: text == 'DarkTheme' ?
+        title: Text(name + 's Diet'),
+        flexibleSpace: text == 'DarkTheme' ?
          Container(
           decoration: BoxDecoration(
             gradient: LinearGradient( 
@@ -73,37 +75,10 @@ class _MyWorkoutPlanState extends State<MyWorkoutPlan> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Lottie.asset('assets/anumations/workout.json'),
-          SizedBox(height: 32),
-          Text("You Dont Have a Workout Plan",
-          style: TextStyle(
-            fontSize: 26,)),
-          SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              primary: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              textStyle: TextStyle(fontSize: 28),
-            ),
-            icon: Icon(Icons.sports_kabaddi,color: Colors.white),
-            label: Text('Contact Me',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context, 
-                  MaterialPageRoute(builder: (context) => ContactMe()));
-            },
-          )
-        ]
+      body: PDFView(
+        filePath: widget.file.path,
+        swipeHorizontal: true,
       ),
     );
   }
 }
-
-

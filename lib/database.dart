@@ -61,6 +61,23 @@ class DatabaseService {
     }
   }
   
+  getRecommendation() async {
+    List<String> links = [];
+    try {
+       firebase_storage.ListResult result =
+        await firebase_storage.FirebaseStorage.instance.ref().child("recommendations").listAll();
+    for (firebase_storage.Reference ref in result.items) {
+     String url = await firebase_storage.FirebaseStorage.instance
+      .ref(ref.fullPath)
+      .getDownloadURL();
+        links.add(url);
+    }
+    return links;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   addNewEvent(
     String title, String description, DateTime dateTime,String email,TimeOfDay time, String trainer) async {
     Map<String, Object> eventMap = {

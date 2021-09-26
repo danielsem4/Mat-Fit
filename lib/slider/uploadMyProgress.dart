@@ -1,19 +1,20 @@
 import 'package:fit_app/database.dart';
-import 'package:fit_app/widgets/listOfUsers.dart';
+import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
-class AddEventPage extends StatefulWidget {
+class UploadMyProgress extends StatefulWidget {
   final DateTime selectedday;
 
-  const AddEventPage({Key key, this.selectedday}) : super(key: key);
+  const UploadMyProgress({Key key, this.selectedday}) : super(key: key);
   @override
-  State<AddEventPage> createState() => _AddEventPageState();
+  State<UploadMyProgress> createState() => _UploadMyProgress();
 }
 
-class _AddEventPageState extends State<AddEventPage> {
+class _UploadMyProgress extends State<UploadMyProgress> {
 
   DatabaseService dbService = DatabaseService();
   TextEditingController titleC = new TextEditingController();
@@ -22,16 +23,6 @@ class _AddEventPageState extends State<AddEventPage> {
   String email = "";
   String userName = "";
   TimeOfDay time;
-
-  String getText() {
-    if(time == null) {
-      return 'Select Time';
-    } else {
-      final hours = time.hour.toString().padLeft(2,'0');
-      final minutes = time.minute.toString().padLeft(2,'0');
-      return '$hours:$minutes';
-    }
-  }
 
   String getTrainerName() {
     return 'Check';
@@ -57,17 +48,32 @@ class _AddEventPageState extends State<AddEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+    ? 'DarkTheme'
+    : 'LightTheme'; 
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Event"),
+        title: Text("No Pain No Gain"),
         centerTitle: true,
         backgroundColor: Colors.grey.shade800,
-         flexibleSpace: Container(
+         flexibleSpace: text == 'DarkTheme' ?
+         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.grey,
-                Colors.white10,
+            gradient: LinearGradient( 
+              colors:[
+                Colors.deepPurple,
+                Colors.red
+              ]
+            )
+          ),
+        ) :
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient( 
+              colors:[
+                Colors.green,
+                Colors.lime
               ]
             )
           ),
@@ -85,10 +91,14 @@ class _AddEventPageState extends State<AddEventPage> {
                 primary: Colors.transparent
               ),
               onPressed: () async {
-                await dbService.addNewEvent(titleC.text, descriptionC.text, dateTime, email, time, userName);
-                Navigator.of(context).pop();
+                
               },
-               child: Text("Save"),
+               child: Text(
+                 "Save",
+                 style: TextStyle(
+                   color: Colors.white,
+                 ),
+                 ),
                ),
           )
         ],
@@ -140,57 +150,11 @@ class _AddEventPageState extends State<AddEventPage> {
                 Divider (
                   thickness: 2.5,
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.more_time),
-                      iconSize: 35,
-                      color: Colors.grey,
-                      onPressed: () => pickTime(context),
-                    ),
-                    Text(getText())
-                  ],
-                ),
-                Divider (
-                  thickness: 2.5,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.person),
-                      iconSize: 35,
-                      color: Colors.grey,
-                      onPressed: () {
-                        setState(() {
-                          userName = getTrainerName();
-                        });
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => ListOfUsers()));
-                      }
-                    ),
-                    Text("Select trainer")
-                  ],
-                ),
-                Divider (
-                  thickness: 2.5,
-                ),
               ],
             ) 
           )
         ],
       ),
     );
-  }
-  Future pickTime(BuildContext context) async {
-    final initialTime = TimeOfDay(hour: 12, minute: 0);
-    final selectedTime = await showTimePicker(
-      context: context,
-      initialTime: time ?? initialTime,
-    );
-    if (selectedTime == null) return;
-    setState(() {
-      time = selectedTime;
-    });
   }
 }

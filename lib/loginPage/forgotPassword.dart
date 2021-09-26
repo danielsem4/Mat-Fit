@@ -1,7 +1,6 @@
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/loginPage/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({ Key key }) : super(key: key);

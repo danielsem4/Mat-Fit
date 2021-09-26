@@ -38,13 +38,20 @@ class _AdminHomePageState extends State<AdminHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 40),
+            Padding(
+           padding: const EdgeInsets.all(25.0),
+            child: Image.asset(
+              ('assets/logo/logo_7.png'),
+              width: 250,
+              height: 165,
+              fit: BoxFit.cover,
+            ),),
             Row(
               children: [
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(70.0, 25.0, 90.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(70.0, 0.0, 90.0, 0.0),
                       child: IconButton(
                         onPressed: () {
                           Navigator.push(
@@ -115,17 +122,21 @@ class _AdminHomePageState extends State<AdminHomePage> {
                       ),
                   ]),
                   Padding(
-                  padding: const EdgeInsets.fromLTRB(45.0, 20.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(52.0, 20.0, 0.0, 0.0),
                   child: Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => AdminSettings()));
+                        },
                         icon: Icon(
-                          FontAwesomeIcons.fileUpload,
+                          Icons.settings,
                           color: Colors.white),
                           iconSize: 40,
                         ),
-                        Text("Upload PDF",
+                        Text("Settings",
                         style: TextStyle(
                           color: Colors.white
                         ),
@@ -167,17 +178,15 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   child: Column(
                     children: [
                       IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                           context, 
-                            MaterialPageRoute(builder: (context) => AdminSettings()));
-                        },
+                        onPressed: () async {
+                        await _auth.signOut();
+                      },
                         icon: Icon(
-                          Icons.settings,
+                          Icons.logout,
                           color: Colors.white),
                           iconSize: 40,
                         ),
-                        Text("Settings",
+                        Text("LogOut",
                         style: TextStyle(
                           color: Colors.white
                         ),
@@ -186,28 +195,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ),
                   ),
               ],
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 80),
-              child: ElevatedButton.icon(
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.white),
-                label: Text("LogOut",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-                  )),
-                style: ElevatedButton.styleFrom(
-                  primary:Colors.grey.shade600,
-                  onPrimary: Colors.white,
-                  minimumSize: Size(250, 45),
-                ),
-              ),
             ),
           ],
         ),

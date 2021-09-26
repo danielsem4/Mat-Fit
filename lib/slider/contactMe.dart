@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:fit_app/slider/theme.dart';
-import 'package:fit_app/slider/utlis.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';

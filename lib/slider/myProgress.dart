@@ -1,5 +1,8 @@
 import 'package:fit_app/slider/theme.dart';
+import 'package:fit_app/slider/uploadMyProgress.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class MyProgress extends StatefulWidget {
@@ -43,7 +46,19 @@ class _MyProgressState extends State<MyProgress> {
       ),
       body: Column(
         children: [
-          
+        Align(
+          alignment: AlignmentDirectional.bottomEnd,
+          child: FloatingActionButton (
+            child: Icon(Icons.add),
+            backgroundColor: Colors.grey.shade600,
+            splashColor: Colors.grey.shade200,
+            onPressed: () {
+              Navigator.push(
+                context, 
+                  MaterialPageRoute(builder: (context) => UploadMyProgress()));
+            },
+          ),
+        ), 
         ],
       ),
     );
