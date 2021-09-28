@@ -48,5 +48,7 @@
 		 <string>https</string>
 		 <string>http</string>
 		</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permission to access photo gallery</string>
 </dict>
 </plist>

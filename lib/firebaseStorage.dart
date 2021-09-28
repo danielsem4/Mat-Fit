@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_form_builder/l10n/messages_ar.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -19,5 +20,17 @@ class PDFApi {
     final bytes = await refPdf.getData();
 
     return _storeFile(url,bytes);
+  }
+}
+
+class FirebaseApi {
+  static UploadTask uploadFile(String destination, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(file);
+    } on FirebaseException catch (e) {
+      return null;
+    }
   }
 }

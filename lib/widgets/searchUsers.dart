@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fit_app/database.dart';
+import 'package:fit_app/firebaseStorage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 
 class SearcUsers extends StatefulWidget {
@@ -23,6 +30,8 @@ class _SearcUsersState extends State<SearcUsers> {
   DatabaseService dbService = new DatabaseService();
   TextEditingController nameC = new TextEditingController();
   QuerySnapshot searchSnapshot;
+  File file;
+  UploadTask task;
 
   Widget searchList(BuildContext context) {
     return searchSnapshot != null
@@ -44,11 +53,23 @@ class _SearcUsersState extends State<SearcUsers> {
           child: Text("User no found"),
         );
   }
-  @override
+
+  // ignore: non_constant_identifier_names
   Widget SearchTile(
     {BuildContext context,String userName, String userEmail, String userLastName, String userNum, String userDiet, String userWorkout}) {
+    final fileName = file != null ?basename(file.path) : 'No File Selected';
+
+    final String plan = "WorkoutPlans/";
+    final String diet = "Diets/";
+    String uid;
+
     return InkWell(
       onTap: () {
+        dbService.getUserIdByEmail(userEmail).then((val){
+          setState(() {
+            uid = val;
+          });
+        });
         showDialog(
             context: context,
             builder: (context) {
@@ -63,7 +84,7 @@ class _SearcUsersState extends State<SearcUsers> {
             Container(
               color: Colors.white70,
               child: Text(
-                    "For "+ userName + " " + userLastName,
+                    'For $userName $userLastName',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       color: Colors.black,
@@ -116,7 +137,11 @@ class _SearcUsersState extends State<SearcUsers> {
                                   splashColor: Colors.grey,
                                   iconSize: 28,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    dbService.updateUserDiet("true",uid);
+                                    setState(() {
+                                      userDiet = "true";
+                                    });
+                                    addPdf();
                                   },
                                 ),
                                 Text(
@@ -140,11 +165,15 @@ class _SearcUsersState extends State<SearcUsers> {
                                   splashColor: Colors.brown,
                                   iconSize: 28,
                                   onPressed: () {
+                                    dbService.updateUserDiet("false",uid);
+                                    setState(() {
+                                      userDiet = "false";
+                                    });
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 Text(
-                                  "Delet",
+                                  "Delete",
                                   style: TextStyle(
                                     fontSize: 14
                                   ),
@@ -166,7 +195,11 @@ class _SearcUsersState extends State<SearcUsers> {
                                   splashColor: Colors.grey,
                                   iconSize: 30,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    dbService.updateUserPlan("true",uid);
+                                    setState(() {
+                                      userWorkout = "true";
+                                    });
+                                    addPdf();
                                   },
                                 ),
                                 Text(
@@ -190,6 +223,10 @@ class _SearcUsersState extends State<SearcUsers> {
                                   splashColor: Colors.brown,
                                   iconSize: 30,
                                   onPressed: () {
+                                    dbService.updateUserPlan("false",uid);
+                                    setState(() {
+                                      userWorkout = "false";
+                                    });
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -212,7 +249,7 @@ class _SearcUsersState extends State<SearcUsers> {
                               children: [
                                 IconButton (
                                   onPressed: () {
-                                    
+                                    uploadPdf(diet);
                                   },
                                    icon: Icon(Icons.file_upload_outlined),
                                    iconSize: 32,
@@ -236,7 +273,7 @@ class _SearcUsersState extends State<SearcUsers> {
                               children: [
                                 IconButton (
                                   onPressed: () {
-                                    
+                                     uploadPdf(plan);
                                   },
                                    icon: Icon(Icons.file_upload_rounded),
                                    iconSize: 32,
@@ -274,14 +311,11 @@ class _SearcUsersState extends State<SearcUsers> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("------------------------------------------------------------------------------------",
-                style: TextStyle(
-                color: Colors.grey.shade200
-                )),
+                Divider(color: Colors.white,thickness: 2,),
                 Align(
                  alignment: Alignment.topLeft,
                   child: Text(
-                    "Name: " + userName + " " + userLastName,
+                    'Name: $userName $userLastName',
                       style: TextStyle(
                             fontSize: 16,
                             color: Colors.white
@@ -293,7 +327,7 @@ class _SearcUsersState extends State<SearcUsers> {
                 child: Column(
                   children: [
                     Text(
-                      "Email: " + userEmail,
+                      'Email: $userEmail',
                       style: TextStyle(
                       fontSize: 16,
                       color: Colors.white
@@ -305,7 +339,7 @@ class _SearcUsersState extends State<SearcUsers> {
                 Align(
                 alignment: Alignment.topLeft,
                 child: Text (
-                 "Phone: " + userNum,
+                 'Phone: $userNum',
                  style: TextStyle (
                  fontSize: 16,
                  color: Colors.white
@@ -334,7 +368,7 @@ class _SearcUsersState extends State<SearcUsers> {
                       ),
                   ],
                 ) 
-                ),
+              ),
             Align(
                 alignment: Alignment.topLeft,
                 child: Row (
@@ -352,18 +386,14 @@ class _SearcUsersState extends State<SearcUsers> {
                       Icons.check,
                       color: Colors.green
                       ) :
-                    Icon(Icons.cancel,
+                    Icon (
+                      Icons.cancel,
                       color: Colors.red
-                      ),
-                  ],
-                )
-              ),
-                Text(
-                  "------------------------------------------------------------------------------------",
-                style: TextStyle(
-                color: Colors.grey.shade200
+                  ),
+                ],
               ),
             ),
+            Divider(color: Colors.white,thickness: 2,),
           ],
         ),
       ),
@@ -459,6 +489,32 @@ class _SearcUsersState extends State<SearcUsers> {
         ),
       ),
     );
+  }
+  
+  Future addPdf() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if(result == null) return;
+    final path = result.files.single.path;
+
+    setState(() {
+      file = File(path);
+    });
+  }
+
+  Future uploadPdf(String folder) async {
+    if(file == null) return;
+
+    final fileName = basename(file.path);
+    final destination = '$folder$fileName';
+
+    task = FirebaseApi.uploadFile(destination, file);
+
+    if(task == null) return;
+    setState(() {});
+
+    final snapshot = await task.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
   }
 }
   

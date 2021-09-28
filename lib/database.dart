@@ -21,7 +21,7 @@ class DatabaseService {
       await users.doc(auth.currentUser.uid).set(userInfoMap);
       return;
     }
-
+  
   Future<QuerySnapshot> getUserByUsername(String searchQuery) async {
     return await FirebaseFirestore.instance
       .collection('Users')
@@ -31,6 +31,20 @@ class DatabaseService {
 
   getUserName() async {
     return await users.doc(auth.currentUser.uid).get();
+  }
+
+  getUserIdByEmail(String email) async {
+    String ide;
+    await getByUserEmail(email).then((value) async {
+      ide = value.docs[0].id;
+    });
+    return ide;
+  }
+
+  Future<QuerySnapshot> getByUserEmail(String useremail) async {
+    return await users
+        .where('Email', isEqualTo: useremail)
+        .get();
   }
 
   addNewAnnouncement(String announcement) async {
@@ -89,6 +103,18 @@ class DatabaseService {
       'hours': time.toString(),
     };
     FirebaseFirestore.instance.collection('Events').add(eventMap);
+  }
+
+  Future updateUserPlan(String plan,String uid) async {
+       await users.doc(uid).set({
+      'WorkoutPlan': plan
+    },SetOptions(merge: true));
+  }
+  
+  Future updateUserDiet(String diet,String uid) async {
+      await users.doc(uid).set({
+        'Diet': diet
+    },SetOptions(merge: true));
   }
 }
 

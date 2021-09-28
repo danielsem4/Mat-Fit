@@ -1,16 +1,21 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:fit_app/widgets/searchUsers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 class ListOfUsers extends StatefulWidget {
 
   @override
   _ListOfUsersState createState() => _ListOfUsersState();
+  
 }
 
 class _ListOfUsersState extends State<ListOfUsers> {
-Widget chatRoomList() {
+  File file;
+  Widget chatRoomList() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('Users')
@@ -21,7 +26,7 @@ Widget chatRoomList() {
             ? ListView.builder(
                 itemCount: snapshot.data.docs.length,
                 itemBuilder: (context, index) {
-                  return ChatRoomTile(
+                  return UsersList(
                     snapshot.data.docs[index].data()['Name'],
                     snapshot.data.docs[index].data()['Email'],
                     snapshot.data.docs[index].data()['Diet'],
@@ -82,14 +87,14 @@ Widget chatRoomList() {
   }
 }
 
-class ChatRoomTile extends StatelessWidget {
+class UsersList extends StatefulWidget {
   final String name;
   final String email;
   final String diat;
   final String workout;
   final String phoneNum;
   final String lastName;
-  ChatRoomTile(
+  UsersList(
     this.name,
     this.email,
     this.diat,
@@ -97,6 +102,12 @@ class ChatRoomTile extends StatelessWidget {
     this.phoneNum,
     this.lastName
   );
+
+  @override
+  State<UsersList> createState() => _UsersListState();
+}
+
+class _UsersListState extends State<UsersList> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -115,7 +126,7 @@ class ChatRoomTile extends StatelessWidget {
             Container(
               color: Colors.white70,
               child: Text(
-                    "For "+ name + " " + lastName,
+                    'For ${widget.name} ${widget.lastName}',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       color: Colors.black,
@@ -160,7 +171,7 @@ class ChatRoomTile extends StatelessWidget {
                               ],
                             ),
                             SizedBox(width: 9.5,),
-                            diat == "false" ?
+                            widget.diat == "false" ?
                             Column(
                               children: [
                                 IconButton(
@@ -210,7 +221,7 @@ class ChatRoomTile extends StatelessWidget {
                               ],
                             ),
                             SizedBox(width: 9.5,),
-                            workout == "false" ?
+                            widget.workout == "false" ?
                             Column(
                               children: [
                                 IconButton(
@@ -242,6 +253,7 @@ class ChatRoomTile extends StatelessWidget {
                                   splashColor: Colors.brown,
                                   iconSize: 30,
                                   onPressed: () {
+                                    
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -332,7 +344,7 @@ class ChatRoomTile extends StatelessWidget {
             Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Name: " + name + " " + lastName,
+                  "Name: " + widget.name + " " + widget.lastName,
                   style: TextStyle(
                         fontSize: 16,
                         color: Colors.white
@@ -342,7 +354,7 @@ class ChatRoomTile extends StatelessWidget {
             Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                 "Email: " + email,
+                 "Email: " + widget.email,
                  style: TextStyle(
                         fontSize: 16,
                         color: Colors.white
@@ -361,7 +373,7 @@ class ChatRoomTile extends StatelessWidget {
                       ),
                       textDirection: TextDirection.ltr,
                       ),
-                    diat == "true" ?
+                    widget.diat == "true" ?
                     Icon(
                       Icons.check,
                       color: Colors.green
@@ -384,7 +396,7 @@ class ChatRoomTile extends StatelessWidget {
                       ),
                       textDirection: TextDirection.ltr,
                     ),
-                    workout == "true" ?
+                    widget.workout == "true" ?
                     Icon (
                       Icons.check,
                       color: Colors.green
@@ -398,7 +410,7 @@ class ChatRoomTile extends StatelessWidget {
             Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  "Phone: " + phoneNum,
+                  "Phone: " + widget.phoneNum,
                   style: TextStyle(
                         fontSize: 16,
                         color: Colors.white

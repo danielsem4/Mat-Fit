@@ -34,28 +34,38 @@ class _PublishAnnouncementState extends State<PublishAnnouncement> {
         ),
       ),
       backgroundColor: Colors.grey.shade600,
-      body: Column(children: [
-        Container(
-          padding: EdgeInsets.all(60.0),
-          child: TextField(
-          controller: myController,
-          decoration: InputDecoration(hintText: "Publish the following:",
-          contentPadding: EdgeInsets.all(100),
-          border: OutlineInputBorder()
+      body: SingleChildScrollView(
+        child: Column(children: [
+          Container(
+            padding: EdgeInsets.all(60.0),
+            child: TextField(
+            controller: myController,
+            maxLines: 9,
+            minLines: 1,
+            decoration: InputDecoration(hintText: "Publish the following:",
+            contentPadding: EdgeInsets.all(100),
+            border: OutlineInputBorder(
+              
+            )
+            ),
+            textDirection: TextDirection.rtl,
+            
           ),
-          textDirection: TextDirection.rtl,
-          
-        ),
-        )
-        ,
-        ElevatedButton(
-          onPressed: (){
-            mydb.addNewAnnouncement(myController.text);
-        },
-        child: Text("Publish"), 
-        ),
-
-      ],),
+          )
+          ,
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.grey.shade500
+            ),
+            onPressed: (){
+              mydb.addNewAnnouncement(myController.text);
+              Navigator.of(context).pop();
+          },
+          child: Text("Publish"), 
+          ),
+      
+        ],),
+      ),
     );
     
   }

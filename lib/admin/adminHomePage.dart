@@ -1,6 +1,7 @@
 import 'package:fit_app/admin/adminCalendar.dart';
 import 'package:fit_app/admin/adminSettings.dart';
 import 'package:fit_app/admin/publishAnnouncement.dart';
+import 'package:fit_app/admin/uploadPhoto.dart';
 import 'package:fit_app/authentication.dart';
 import 'package:fit_app/widgets/searchUsers.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   final AuthenticationService _auth = AuthenticationService();
+  String imageUrl;
   
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,11 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   child: Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                           context, 
+                            MaterialPageRoute(builder: (context) => UploadPhoto()));
+                        },
                         icon: Icon(
                           FontAwesomeIcons.photoVideo,
                           color: Colors.white),
@@ -88,7 +94,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         style: TextStyle(
                           color: Colors.white
                         ),
-                        ),
+                      ),
                     ],
                   ),
                   ),
