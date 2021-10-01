@@ -1,3 +1,4 @@
+import 'package:fit_app/loginPage/forgotPassword.dart';
 import 'package:fit_app/slider/changeThemeButton.dart';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,11 +61,10 @@ class _SettingsState extends State<Settings> {
               ],
             ),
             Divider(height: 20, thickness: 2.5),
-            SizedBox(height: 10),
             buildAccountOptions(context, "Change Paswword"),
             buildAccountOptions(context, "Language"),
             buildAccountOptions(context, "Social"),
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             Row(
               children: [
                 Icon(Icons.settings,color: Colors.grey),
@@ -139,11 +139,28 @@ class _SettingsState extends State<Settings> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title,style: TextStyle(
+            TextButton(
+              child: Text (
+                title,
+                style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
               color: Colors.grey,
               ),
+              ),
+              onPressed: () {
+                if (title == "Change Paswword") {
+                  Navigator.push(
+                         context, 
+                          MaterialPageRoute(builder: (context) => ForgotPassword()));
+                }
+                if (title == "Language") {
+                  
+                }
+                if (title == "Social") {
+                  
+                }
+              },
             ),
             Icon(Icons.arrow_forward_ios,color: Colors.grey)
           ],

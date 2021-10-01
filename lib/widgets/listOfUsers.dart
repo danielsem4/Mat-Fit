@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fit_app/database.dart';
+import 'package:fit_app/firebaseStorage.dart';
 import 'package:fit_app/widgets/searchUsers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +18,7 @@ class ListOfUsers extends StatefulWidget {
 
 class _ListOfUsersState extends State<ListOfUsers> {
   File file;
-  Widget chatRoomList() {
+  Widget usersList() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('Users')
@@ -81,7 +84,7 @@ class _ListOfUsersState extends State<ListOfUsers> {
         centerTitle: true,
       ),
       body: Container(
-        child: chatRoomList(),
+        child: usersList(),
       ),
     );
   }
@@ -108,10 +111,23 @@ class UsersList extends StatefulWidget {
 }
 
 class _UsersListState extends State<UsersList> {
+
+  DatabaseService dbService = new DatabaseService();
+  String uid;
+  File file;
+  final String plan = "WorkoutPlans/";
+  final String diet = "Diets/";
+  UploadTask task;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        dbService.getUserIdByEmail(widget.email).then((val){
+          setState(() {
+            uid = val;
+          });
+        });
         showDialog(
             context: context,
             builder: (context) {
@@ -179,7 +195,8 @@ class _UsersListState extends State<UsersList> {
                                   splashColor: Colors.grey,
                                   iconSize: 28,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    dbService.updateUserDiet("true",uid);
+                                    addPdf();
                                   },
                                 ),
                                 Text(
@@ -203,6 +220,7 @@ class _UsersListState extends State<UsersList> {
                                   splashColor: Colors.brown,
                                   iconSize: 28,
                                   onPressed: () {
+                                    dbService.updateUserDiet("false",uid);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -229,7 +247,8 @@ class _UsersListState extends State<UsersList> {
                                   splashColor: Colors.grey,
                                   iconSize: 30,
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                   dbService.updateUserPlan("true",uid);
+                                   addPdf();
                                   },
                                 ),
                                 Text(
@@ -253,7 +272,7 @@ class _UsersListState extends State<UsersList> {
                                   splashColor: Colors.brown,
                                   iconSize: 30,
                                   onPressed: () {
-                                    
+                                    dbService.updateUserPlan("false",uid);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -276,7 +295,7 @@ class _UsersListState extends State<UsersList> {
                               children: [
                                 IconButton (
                                   onPressed: () {
-                                    
+                                    uploadPdf(diet);
                                   },
                                    icon: Icon(Icons.file_upload_outlined),
                                    iconSize: 32,
@@ -300,7 +319,7 @@ class _UsersListState extends State<UsersList> {
                               children: [
                                 IconButton (
                                   onPressed: () {
-                                    
+                                    uploadPdf(plan);
                                   },
                                    icon: Icon(Icons.file_upload_rounded),
                                    iconSize: 32,
@@ -422,5 +441,30 @@ class _UsersListState extends State<UsersList> {
           )
         ),
     );
+  }
+
+  Future addPdf() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+
+    if(result == null) return;
+    final path = result.files.single.path;
+
+    setState(() {
+      file = File(path);
+    });
+  }
+
+  Future uploadPdf(String folder) async {
+    if(file == null) return;
+
+    final fileName = basename(file.path);
+    final destination = '$folder$fileName';
+
+    task = FirebaseApi.uploadFile(destination, file);
+
+    if(task == null) return;
+    setState(() {});
+
+
   }
 }

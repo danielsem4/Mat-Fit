@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fit_app/database.dart';
+import 'package:fit_app/firebaseStorage.dart';
 import 'package:fit_app/slider/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 
@@ -14,19 +20,31 @@ class UploadMyProgress extends StatefulWidget {
   State<UploadMyProgress> createState() => _UploadMyProgress();
 }
 
+  DocumentSnapshot profileSnapshot;
+  DatabaseService databaseMethods = new DatabaseService();
+
+  void loadInfo() async {
+    await databaseMethods.getUserName().then((val) {
+      profileSnapshot = val;
+    });
+  }
+
 class _UploadMyProgress extends State<UploadMyProgress> {
 
   DatabaseService dbService = DatabaseService();
-  TextEditingController titleC = new TextEditingController();
-  TextEditingController descriptionC = new TextEditingController();
-  DateTime dateTime = DateTime.now();
+  TextEditingController weightC = new TextEditingController();
+  TextEditingController goalC = new TextEditingController();
   String email = "";
   String userName = "";
-  TimeOfDay time;
-
-  String getTrainerName() {
-    return 'Check';
-  }
+  String uid;
+  String day = DateTime.now().day.toString();
+  String month = DateTime.now().month.toString();
+  String year = DateTime.now().year.toString();
+  String time = "";
+  File file;
+  UploadTask task;
+  List<File> files = [];
+  int counter = 0;
 
   @override
   void initState() {
@@ -39,6 +57,8 @@ class _UploadMyProgress extends State<UploadMyProgress> {
       dbService.getUserName().then((value){
         setState(() {
           email = value.data()['Email'];
+          userName = value.data()['Name'];
+          time = '$day.$month.$year';
         });
       });
     } catch (e) {
@@ -51,7 +71,7 @@ class _UploadMyProgress extends State<UploadMyProgress> {
     final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
     ? 'DarkTheme'
     : 'LightTheme'; 
-
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("No Pain No Gain"),
@@ -91,15 +111,17 @@ class _UploadMyProgress extends State<UploadMyProgress> {
                 primary: Colors.transparent
               ),
               onPressed: () async {
-                
+                dbService.saveUserProgress(email, weightC.text ,goalC.text, time);
+                uploadPhoto();
+                Navigator.of(context).pop();
               },
                child: Text(
                  "Save",
                  style: TextStyle(
-                   color: Colors.white,
-                 ),
-                 ),
-               ),
+                 color: Colors.white,
+                ),
+              ),
+            ),
           )
         ],
       ),
@@ -111,50 +133,94 @@ class _UploadMyProgress extends State<UploadMyProgress> {
               children: [
                 FormBuilderTextField(
                 name: "title",
-                controller: this.titleC,
+                controller: this.weightC,
                 decoration: InputDecoration(
-                  hintText: "Add Title",
+                  hintText: "Your weight",
                   border: InputBorder.none,
-                  prefixIcon: Icon(Icons.turned_in_not),
+                  prefixIcon: Icon(FontAwesomeIcons.weight),
                 )),
                 Divider (
                   thickness: 2.5,
                 ),
                 FormBuilderTextField(
-                  controller: this.descriptionC,
+                  controller: this.goalC,
                   name: "description",
-                  maxLines: 5,
+                  maxLines: 3,
                   minLines: 1,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Add Detail",
-                    prefixIcon: Icon(Icons.short_text),
+                    hintText: "Add Your Goal till the next ",
+                    prefixIcon: Icon(FontAwesomeIcons.bullseye),
                   ),
                 ),
                 Divider (
                   thickness: 2.5,
                 ),
-                FormBuilderDateTimePicker(
-                  scrollPadding: const EdgeInsets.only(bottom: 15),
-                  name: "date",
-                  initialValue: widget.selectedday ?? 
-                  dateTime,
-                  fieldHintText: "Add Date",
-                  inputType: InputType.date,
-                  format: DateFormat('EEEE, dd MMMM, yyyy'),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.calendar_today_sharp)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      dbService.getUserIdByEmail(email).then((val){
+                      setState(() {
+                        uid = val;
+                      });
+                    });
+                      selectPic();
+                    },
+                    child: Row(
+                      children: [
+                        Text(" "),
+                        Icon(
+                          Icons.photo,
+                          color: Colors.grey.shade400,
+                        ),
+                        Text(
+                          "   Select Photos",
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.grey.shade400
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Divider (
                   thickness: 2.5,
                 ),
+                Lottie.asset('assets/anumations/weight.json'),
               ],
             ) 
           )
         ],
       ),
     );
+  }
+
+  Future selectPic() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    if(result == null) return;
+
+    setState(() {
+      files = result.paths.map((path) => File(path)).toList();
+    });
+    print(files.length);
+  }
+
+  Future uploadPhoto() async {
+    if(files.isEmpty) return;
+     
+    for (file in files) {
+      final fileName = uid;
+      final destination = 'userprogress/$email/$time/$fileName$counter';
+
+      task = FirebaseApi.uploadFile(destination, file);
+
+      if(task == null) return;
+      setState(() {
+        counter+=1;
+      });
+    }
   }
 }

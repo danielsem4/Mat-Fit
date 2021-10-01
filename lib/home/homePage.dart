@@ -76,7 +76,7 @@ class _Body extends State<Body> {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        title: Text('Hello ' + name),
+        title: Text("Hello $name"),
         centerTitle: true,
         flexibleSpace: text == 'DarkTheme' ?
          Container(

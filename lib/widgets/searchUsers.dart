@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fit_app/database.dart';
 import 'package:fit_app/firebaseStorage.dart';
@@ -17,14 +15,12 @@ class SearcUsers extends StatefulWidget {
 }
 
   DocumentSnapshot profileSnapshot;
-
-void loadInfo() async {
-  await databaseMethods.getUserName().then((val) {
-    profileSnapshot = val;
-  });
-}
-
-DatabaseService databaseMethods = new DatabaseService();
+  void loadInfo() async {
+    await databaseMethods.getUserName().then((val) {
+      profileSnapshot = val;
+    });
+  }
+  DatabaseService databaseMethods = new DatabaseService();
   
 class _SearcUsersState extends State<SearcUsers> {
   DatabaseService dbService = new DatabaseService();
@@ -57,12 +53,12 @@ class _SearcUsersState extends State<SearcUsers> {
   // ignore: non_constant_identifier_names
   Widget SearchTile(
     {BuildContext context,String userName, String userEmail, String userLastName, String userNum, String userDiet, String userWorkout}) {
-    final fileName = file != null ?basename(file.path) : 'No File Selected';
-
+    // The folder names and the selected user id 
     final String plan = "WorkoutPlans/";
     final String diet = "Diets/";
     String uid;
 
+    // build the Dialog that show the user info and modify it
     return InkWell(
       onTap: () {
         dbService.getUserIdByEmail(userEmail).then((val){
@@ -138,9 +134,6 @@ class _SearcUsersState extends State<SearcUsers> {
                                   iconSize: 28,
                                   onPressed: () {
                                     dbService.updateUserDiet("true",uid);
-                                    setState(() {
-                                      userDiet = "true";
-                                    });
                                     addPdf();
                                   },
                                 ),
@@ -166,9 +159,6 @@ class _SearcUsersState extends State<SearcUsers> {
                                   iconSize: 28,
                                   onPressed: () {
                                     dbService.updateUserDiet("false",uid);
-                                    setState(() {
-                                      userDiet = "false";
-                                    });
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -196,9 +186,7 @@ class _SearcUsersState extends State<SearcUsers> {
                                   iconSize: 30,
                                   onPressed: () {
                                     dbService.updateUserPlan("true",uid);
-                                    setState(() {
-                                      userWorkout = "true";
-                                    });
+                                    
                                     addPdf();
                                   },
                                 ),
@@ -224,9 +212,7 @@ class _SearcUsersState extends State<SearcUsers> {
                                   iconSize: 30,
                                   onPressed: () {
                                     dbService.updateUserPlan("false",uid);
-                                    setState(() {
-                                      userWorkout = "false";
-                                    });
+                                    
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -304,14 +290,15 @@ class _SearcUsersState extends State<SearcUsers> {
         ),
       ),
     );
-      });
-      },
+    });
+    },
+      // represent the info about the users 
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(color: Colors.white,thickness: 2,),
+                Divider(color: Colors.white,thickness: 2),
                 Align(
                  alignment: Alignment.topLeft,
                   child: Text(
@@ -393,7 +380,7 @@ class _SearcUsersState extends State<SearcUsers> {
                 ],
               ),
             ),
-            Divider(color: Colors.white,thickness: 2,),
+            
           ],
         ),
       ),
@@ -513,8 +500,7 @@ class _SearcUsersState extends State<SearcUsers> {
     if(task == null) return;
     setState(() {});
 
-    final snapshot = await task.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
+    
   }
 }
   

@@ -18,8 +18,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ?basename(file.path) : 'No File Selected';
-
     return Scaffold(
       backgroundColor: Colors.grey.shade700,
       appBar: AppBar(
@@ -104,7 +102,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(65.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(72.0, 0.0, 0.0, 0.0),
                       child: IconButton (
                         onPressed: selectFile,
                         icon: Icon(Icons.photo_camera_back),
@@ -114,9 +112,9 @@ class _UploadPhotoState extends State<UploadPhoto> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(65.0, 0.0, 0.0, 14.0),
+                      padding: const EdgeInsets.fromLTRB(72.0, 0.0, 0.0, 20.0),
                       child: Text(
-                        "Select Photo",
+                        "Select Rec",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.white
@@ -128,7 +126,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                 Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(85.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(97.0, 0.0, 0.0, 0.0),
                   child: IconButton (
                     onPressed: uploadRec,
                     icon: Icon(Icons.upload_sharp),
@@ -138,9 +136,9 @@ class _UploadPhotoState extends State<UploadPhoto> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(85.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(97.0, 0.0, 0.0, 0.0),
                   child: Text(
-                    "Upload Photo",
+                    "Upload Rec",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.white
@@ -206,8 +204,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
     if(task == null) return;
     setState(() {});
 
-    final snapshot = await task.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
   }
 
   Future uploadRec() async {
@@ -221,8 +217,6 @@ class _UploadPhotoState extends State<UploadPhoto> {
     if(task == null) return;
     setState(() {});
 
-    final snapshot = await task.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
   }
 }
 

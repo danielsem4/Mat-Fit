@@ -21,6 +21,18 @@ class DatabaseService {
       await users.doc(auth.currentUser.uid).set(userInfoMap);
       return;
     }
+
+    Future<void> saveUserProgress(
+    String email, String weight, String goal, String date) async {
+      Map<String, String> userInfoMap = {
+        'Email': email,
+        'Weight': weight,
+        'Goal': goal,
+        'Date': date,
+      };
+      FirebaseFirestore.instance.collection('Progress').add(userInfoMap);
+      return;
+    }
   
   Future<QuerySnapshot> getUserByUsername(String searchQuery) async {
     return await FirebaseFirestore.instance
@@ -29,6 +41,12 @@ class DatabaseService {
       .get();
   }
 
+  Future<QuerySnapshot> getUserProgressByUserEmail(String searchQuery) async {
+    return await FirebaseFirestore.instance
+      .collection('Progress')
+      .where('Email', isEqualTo: searchQuery)
+      .get();
+  }
   getUserName() async {
     return await users.doc(auth.currentUser.uid).get();
   }
@@ -116,5 +134,24 @@ class DatabaseService {
         'Diet': diet
     },SetOptions(merge: true));
   }
+
+  getProgressPhotos(String email,String date) async {
+    List<String> links = [];
+    try {
+      firebase_storage.ListResult result =
+      await firebase_storage.FirebaseStorage.instance.ref().child('userprogress/$email/$date').listAll();
+    for (firebase_storage.Reference ref in result.items) {
+     String url = await firebase_storage.FirebaseStorage.instance
+      .ref(ref.fullPath)
+      .getDownloadURL();
+        links.add(url);
+    }
+    return links;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+
 }
 
