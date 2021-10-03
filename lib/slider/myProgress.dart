@@ -18,13 +18,6 @@ class MyProgress extends StatefulWidget {
   _MyProgressState createState() => _MyProgressState();
 }
 
-  // DocumentSnapshot profileSnapshot;
-  // void loadInfo() async {
-  //   await databaseMethods.getUserName().then((val) {
-  //     profileSnapshot = val;
-  //   });
-  // }
-  // DatabaseService databaseMethods = new DatabaseService();
 
 class _MyProgressState extends State<MyProgress> {
   DatabaseService dbService = DatabaseService();

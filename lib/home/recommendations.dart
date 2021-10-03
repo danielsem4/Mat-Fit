@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fit_app/loginPage/loading.dart';
 import 'package:fit_app/slider/theme.dart';
+import 'package:fit_app/widgets/photoWheel.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_app/database.dart';
 import 'package:provider/provider.dart';
@@ -64,69 +65,7 @@ class _RecommendationStates extends State<Recommendations> {
           ),
         )
                  ),
-      body: Column(
-        children:[
-          SizedBox(height: 100,),
-           Center(
-             child: CarouselSlider.builder(
-               carouselController: controller,
-               options: CarouselOptions(
-                 height: 360,
-                 initialPage: 0,
-                 enlargeCenterPage: true,
-                 enlargeStrategy: CenterPageEnlargeStrategy.height,
-                 ),
-               itemCount: reclLinks.length,
-               itemBuilder: (context,index,realIndex) {
-                 final urlImage = reclLinks[index];
-
-                 return buildImage(urlImage,index);
-               },
-             ),
-           ),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      SizedBox(height: 120),
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-        primary: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-        padding: EdgeInsets.symmetric(horizontal: 32,vertical: 12)
-        ),
-        child: Icon(
-          Icons.arrow_back,
-          color: Colors.white),
-        onPressed: prev,
-        ),
-        SizedBox(width: 20),
-        ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: text == 'DarkTheme' ?
-                 Colors.deepPurple[400]: Colors.green,
-          padding: EdgeInsets.symmetric(horizontal: 32,vertical: 12)
-        ),
-        child: Icon(
-          Icons.arrow_forward,
-          color: Colors.white),
-        onPressed: next,
-        ),
-    ],
-           )
-          ]
-      ),
+      body: PhotoWheel(reclLinks)
     );
   }
-  Widget buildImage(String urlImage,int index) => Container(
-    margin: EdgeInsets.symmetric(horizontal: 18),
-    color: Colors.deepPurple[400],
-    child: Image.network(
-      urlImage,
-      fit:BoxFit.cover,
-    ),
-  );
-
-  void next() => controller.nextPage(duration: Duration(milliseconds: 500));
-
-  void prev() => controller.previousPage(duration: Duration(milliseconds: 500));
 }
