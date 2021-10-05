@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fit_app/admin/addEvent.dart';
 import 'package:fit_app/database.dart';
 import 'package:fit_app/firebaseStorage.dart';
 import 'package:fit_app/widgets/searchUsers.dart';
@@ -10,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 
 class ListOfUsers extends StatefulWidget {
-
+ final DateTime selectedday;
+ const ListOfUsers({Key key, this.selectedday,}) : super(key: key);
   @override
   _ListOfUsersState createState() => _ListOfUsersState();
-  
 }
 
 class _ListOfUsersState extends State<ListOfUsers> {
@@ -36,6 +37,7 @@ class _ListOfUsersState extends State<ListOfUsers> {
                     snapshot.data.docs[index].data()['WorkoutPlan'],
                     snapshot.data.docs[index].data()['Phone_Number'],
                     snapshot.data.docs[index].data()['Last_Name'],
+                    widget.selectedday
                   );
                 })
             : Container(
@@ -57,7 +59,7 @@ class _ListOfUsersState extends State<ListOfUsers> {
       appBar: AppBar(
         backgroundColor: Colors.grey.shade800,
         title: Text(
-          "Users",
+          "Select user",
         ),
         actions: <Widget> [
           IconButton(
@@ -97,13 +99,15 @@ class UsersList extends StatefulWidget {
   final String workout;
   final String phoneNum;
   final String lastName;
+  final DateTime date;
   UsersList(
     this.name,
     this.email,
     this.diat,
     this.workout,
     this.phoneNum,
-    this.lastName
+    this.lastName,
+    this.date
   );
 
   @override
@@ -136,7 +140,7 @@ class _UsersListState extends State<UsersList> {
         borderRadius: BorderRadius.circular(4)
       ),
       child: Container(
-        height: 170,
+        height: 200,
         child: Column(
           children: [
             Container(
@@ -158,14 +162,21 @@ class _UsersListState extends State<UsersList> {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        Text(
-                          "Choose your action",
-                           style: TextStyle(
-                             color: Colors.white,
-                             fontSize: 18
-                           ) ,
+                        ElevatedButton (
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.transparent
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                            context, 
+                            MaterialPageRoute(builder: (context) => AddEventPage(
+                            userEmail: widget.email,userName: widget.name,selectedday: widget.date,)));
+                          },
+                        child: Text (
+                          "Save For this user"
                         ),
-                        SizedBox(height: 12),
+                      ),
+                        SizedBox(height: 2),
                         Row(
                           children: [
                             Column(

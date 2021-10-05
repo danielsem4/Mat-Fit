@@ -7,8 +7,10 @@ import 'package:intl/intl.dart';
 
 class AddEventPage extends StatefulWidget {
   final DateTime selectedday;
+  final userName;
+  final userEmail;
 
-  const AddEventPage({Key key, this.selectedday}) : super(key: key);
+  const AddEventPage({Key key, this.selectedday,this.userEmail,this.userName}) : super(key: key);
   @override
   State<AddEventPage> createState() => _AddEventPageState();
 }
@@ -19,9 +21,10 @@ class _AddEventPageState extends State<AddEventPage> {
   TextEditingController titleC = new TextEditingController();
   TextEditingController descriptionC = new TextEditingController();
   DateTime dateTime = DateTime.now();
-  String email = "";
-  String userName = "";
   TimeOfDay time;
+  String theHour;
+  String theDate;
+  
 
   String getText() {
     if(time == null) {
@@ -33,8 +36,10 @@ class _AddEventPageState extends State<AddEventPage> {
     }
   }
 
-  String getTrainerName() {
-    return 'Check';
+  void loadInfo(){
+    setState(() {
+      theDate = "${widget.selectedday.year}-${widget.selectedday.month}-${widget.selectedday.day}";
+    });
   }
 
   @override
@@ -43,18 +48,6 @@ class _AddEventPageState extends State<AddEventPage> {
     super.initState();
   }
   
-   void loadInfo() async {
-    try {
-      dbService.getUserName().then((value){
-        setState(() {
-          email = value.data()['Email'];
-        });
-      });
-    } catch (e) {
-        print(e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +78,9 @@ class _AddEventPageState extends State<AddEventPage> {
                 primary: Colors.transparent
               ),
               onPressed: () async {
-                await dbService.addNewEvent(titleC.text, descriptionC.text, dateTime, email, time, userName);
+                await dbService.addNewEvent(titleC.text, descriptionC.text, theDate, widget.userEmail, theHour, widget.userName);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
                child: Text("Save"),
@@ -154,27 +149,6 @@ class _AddEventPageState extends State<AddEventPage> {
                 Divider (
                   thickness: 2.5,
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.person),
-                      iconSize: 35,
-                      color: Colors.grey,
-                      onPressed: () {
-                        setState(() {
-                          userName = getTrainerName();
-                        });
-                        Navigator.push(
-                         context, 
-                          MaterialPageRoute(builder: (context) => ListOfUsers()));
-                      }
-                    ),
-                    Text("Select trainer")
-                  ],
-                ),
-                Divider (
-                  thickness: 2.5,
-                ),
               ],
             ) 
           )
@@ -191,6 +165,7 @@ class _AddEventPageState extends State<AddEventPage> {
     if (selectedTime == null) return;
     setState(() {
       time = selectedTime;
+      theHour = getText();
     });
   }
 }

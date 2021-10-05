@@ -41,6 +41,13 @@ class DatabaseService {
       .get();
   }
 
+  Future<QuerySnapshot> getEventsByUserEmail(String searchQuery) async {
+    return await FirebaseFirestore.instance
+      .collection('Events')
+      .where('id', isEqualTo: searchQuery)
+      .get();
+  }
+
   Future<QuerySnapshot> getUserProgressByUserEmail(String searchQuery) async {
     return await FirebaseFirestore.instance
       .collection('Progress')
@@ -111,14 +118,14 @@ class DatabaseService {
   }
 
   addNewEvent(
-    String title, String description, DateTime dateTime,String email,TimeOfDay time, String trainer) async {
+    String title, String description, String dateTime,String email,String time, String trainer) async {
     Map<String, Object> eventMap = {
       'dateTime': dateTime,
       'description': description,
       'id': email,
       'title': title,
       'trainer': trainer,
-      'hours': time.toString(),
+      'hours': time,
     };
     FirebaseFirestore.instance.collection('Events').add(eventMap);
   }

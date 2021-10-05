@@ -55,8 +55,16 @@ class _NoDietState extends State<NoDiet> {
               primary: text == 'DarkTheme' ?
                  Colors.deepPurple[400]: Colors.green,
             ),
-            icon: Icon(Icons.restaurant_menu_outlined),
-            label: Text('Contact Me'),
+            icon: Icon(
+              Icons.restaurant_menu_outlined,
+              color: Colors.white,
+              ),
+            label: Text(
+              'Contact Me',
+              style: TextStyle(
+                color: Colors.white
+              ),
+              ),
             onPressed: () {
               Navigator.push(
                 context, 

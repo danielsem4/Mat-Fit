@@ -24,10 +24,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   final padding = EdgeInsets.symmetric(horizontal: 20);
   final AuthenticationService _auth = AuthenticationService();
 
-  String val = "false";
+  String valDiet;
   String name = "";
   String lastName = "";
   String email = "";
+  String valWorkout;
   DatabaseService dbService = new DatabaseService();
 
   @override
@@ -40,7 +41,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     try {
       dbService.getUserName().then((value){ 
         setState(() {
-          val = value.data()['Diet'];
+          valDiet = value.data()['Diet'];
+          valWorkout = value.data()['WorkoutPlan'];
         });
       });
     } catch(e) {
@@ -86,17 +88,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 text: 'My Diet',
                 icon: Icons.restaurant,
                 onClicked: () async {
+                   if(this.valDiet == "false") {
+                   Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => NoDiet())); //
+                    } else {
                    final url = 'Diets/'+name+email+'.pdf';
                    final file = await PDFApi.loadFirebase(url);
                   if (file == null) return;
-                  if(this.val == "true") {
-                     Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MyDiet(file: file))); //
-                    } else {
-                      Navigator.push(
-                        context, 
-                          MaterialPageRoute(builder: (context) => NoDiet()));
-                  }
+                    Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MyDiet(file: file))); 
+                  }//
                 }
               ),
               const SizedBox(
@@ -106,17 +108,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 text: 'My Workout Plan',
                 icon: Icons.assignment_rounded,
                 onClicked: ()  async {
+                  if(this.valWorkout == "false") {
+                   Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => NoMyWorkoutPlan())); //
+                    } else {
                    final url = 'WorkoutPlans/'+name+email+'.pdf';
                    final file = await PDFApi.loadFirebase(url);
                   if (file == null) return;
-                  if(this.val == "true") {
-                     Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MyWorkout(file: file))); //
-                    } else {
-                      Navigator.push(
-                        context, 
-                          MaterialPageRoute(builder: (context) => NoMyWorkoutPlan()));
-                    }
+                    Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MyWorkout(file: file))); 
+                  }//
                 }
               ),
               const SizedBox(

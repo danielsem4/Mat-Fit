@@ -140,8 +140,6 @@ class _MyProgressState extends State<MyProgress> {
   }
 
   Widget progressTile({BuildContext context,String userEmail, String userWeight, String userGoal, String userDate}) {
-     
-      String uid;
 
       return InkWell(
          onTap: () {

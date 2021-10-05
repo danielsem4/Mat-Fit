@@ -127,9 +127,12 @@ class ChatRoomTile extends StatelessWidget {
             builder: (context) {
               return AlertDialog(
           actions: <Widget>[
+            Container(
+              height: 90,
+            ),
             Align(
               child: Text(fulldate),
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.topLeft,
             ),
             TextButton(
               child: const Text('Close'),

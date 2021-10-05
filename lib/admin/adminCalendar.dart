@@ -1,4 +1,5 @@
 import 'package:fit_app/admin/addEvent.dart';
+import 'package:fit_app/widgets/listOfUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -73,7 +74,7 @@ class _AdminCalendarState extends State<AdminCalendar> {
         onPressed: () {
            Navigator.push(
             context, 
-            MaterialPageRoute(builder: (context) => AddEventPage(selectedday: selectedDay,)));
+            MaterialPageRoute(builder: (context) => ListOfUsers(selectedday: selectedDay,)));
         },
       ), 
     );
